@@ -1,5 +1,5 @@
 class Subcategory < ApplicationRecord
-  mount_uploader :subcategories_image, FilesUploader
+  has_one_attached :subcategories_image, dependent: :destroy
   belongs_to :category
   belongs_to :article, optional: true
 

@@ -1,5 +1,5 @@
 class Category < ApplicationRecord
-  mount_uploader :category_image, FilesUploader
+  has_one_attached :category_image, dependent: :destroy
   has_many :user, class_name: "User"
 
   has_many :subcategories, inverse_of: :category

@@ -31,10 +31,17 @@
           <% @people.each do |person| %>
             <tr>
               <td><%= person.name %></td>
-
-              <td>
-                <%= show_image_table(person.avatar) %>
-              </td>
+              <% if person.avatar.attached? %>
+                <td>
+                  <%= image_tag person.avatar, style: "height: 215px;
+                  background-color: #eee;
+                  white-space: nowrap;
+                  width: 215px;
+                  text-align: center;" %>
+                </td>
+              <% else %>
+                <td></td>
+              <% end %>
               <% if person.status %>
               <td><%= "Activo" %></td>
               <% else %>

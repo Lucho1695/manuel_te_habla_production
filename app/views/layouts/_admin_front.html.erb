@@ -30,7 +30,7 @@
 <script>
   <% if request.fullpath == "/people/#{current_user.id}/edit" %>
     <% else %>
-    <% if current_user.avatar.file.nil? %>
+    <% if !Person.find_by(email: current_user.email).avatar.attached? %>
       alert("Debe agregar una imagen a su perfil para continuar")
       window.location.href = "http://localhost:3000/people/<%=current_user.id%>/edit";
     <% end %>

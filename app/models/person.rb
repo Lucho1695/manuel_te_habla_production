@@ -10,7 +10,7 @@ class Person < ApplicationRecord
   validates_format_of :email, :with => Devise::email_regexp
   validates :password, presence: true, length: {minimum: 6, maximum: 256}
 
-  mount_uploader :avatar, FilesUploader
+  has_one_attached :avatar, dependent: :destroy
 
   after_save :create_user
 

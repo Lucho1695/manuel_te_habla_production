@@ -3,10 +3,10 @@ module ApplicationHelper
     begin
       if value.present?
         parameter = Time.now.strftime("%Y%m%d%H%M%S%L")
-        if value.url =~ /.pdf/i
+        if value =~ /.pdf/i
           return image_tag( '/assets/pdf.png', style: "width:100%;")
         else
-          return image_tag( value.url + '?s=' + parameter, style: "
+          return image_tag( value, style: "
             width: 315px;
             height: 315px;
             max-width: 100%;
@@ -24,11 +24,11 @@ module ApplicationHelper
     begin
       if value.present?
         parameter = Time.now.strftime("%Y%m%d%H%M%S%L")
-        if value.url =~ /.pdf/i
+        if value =~ /.pdf/i
           return image_tag( '/assets/pdf.png', style: "width:100%;")
         else
           return image_tag(
-            value.url + '?s=' + parameter, style: "height: 125px;
+            value, style: "height: 125px;
             background-color: #eee;
             border-radius: 75%;
             white-space: nowrap;
@@ -46,11 +46,11 @@ module ApplicationHelper
     begin
       if value.present?
         parameter = Time.now.strftime("%Y%m%d%H%M%S%L")
-        if value.url =~ /.pdf/i
+        if value =~ /.pdf/i
           return image_tag( '/assets/pdf.png', style: "width:100%;")
         else
           return image_tag(
-            value.url + '?s=' + parameter, style: "height: 215px;
+            value, style: "height: 215px;
             background-color: #eee;
             white-space: nowrap;
             width: 215px;
@@ -72,7 +72,7 @@ module ApplicationHelper
       id= "#{say_idea.title.gsub(' ', '')}"
       if value.present?
         parameter = Time.now.strftime("%Y%m%d%H%M%S%L")
-        return image_tag( say_idea.say_idea_image.url + '?s=' + parameter,
+        return image_tag( say_idea.say_idea_image + '?s=' + parameter,
           style: "
           width: 315px;
           height: 315px;

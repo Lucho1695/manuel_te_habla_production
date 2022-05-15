@@ -35,18 +35,27 @@ class CategoriesController < ApplicationController
   # GET /categories/new
   def new
     @category = Category.new
-    @users = []
-    Person.where(user_id: current_user.id).each do | person |
-      @users << User.find_by(email: person.email).id
+    if current_user.user_roles == "SuperAdmin"
+      @users = User.where(user_roles: "Niño").ids
+    elsif current_user.user_roles == "Adulto Responsable"
+      @users = []
+      Person.where(user_id: current_user.id).each do | person |
+        @users << User.find_by(email: person.email).id
+      end
     end
   end
 
   # GET /categories/1/edit
   def edit
-    @users = []
-    Person.where(user_id: current_user.id).each do | person |
-      @users << User.find_by(email: person.email).id
+    if current_user.user_roles == "SuperAdmin"
+      @users = User.where(user_roles: "Niño").ids
+    elsif current_user.user_roles == "Adulto Responsable"
+      @users = []
+      Person.where(user_id: current_user.id).each do | person |
+        @users << User.find_by(email: person.email).id
+      end
     end
+    byebug
     @ids = @category.users["ids"].flatten
 
   end

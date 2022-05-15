@@ -19,7 +19,13 @@
           <h1><b>Foto de perfil</b></h1>
         </td>
         <td>
-          <a onclick="return <%= @person.avatar.present? ? true : false %>"><%= show_image_table(@person.avatar) %></a>
+          <a onclick="return <%= @person.avatar.present? ? true : false %>">
+            <%= image_tag @person.avatar, style: "height: 215px;
+            background-color: #eee;
+            white-space: nowrap;
+            width: 215px;
+            text-align: center;" %>
+          </a>
         </td>
       </tbody>
       <thead>
