@@ -1,0 +1,311 @@
+<div class="card border-info">
+  <div id='content' align='center'>
+    <div id="card-header"><b id="titles"><%= @image.title.upcase %></b></div>
+    <h1>Pulsa en un cuadro y luego en otro para intercambiar sus posiciones!!</h1>
+    <div id='conf'>
+      <select class="dropdown" id='piezas'>
+        <option value='4'>4</option>
+        <option value='9'>9</option>
+      </select>
+      <input type='button' class="btn btn-success" id='barajar' value='Barajar' />
+      <%= link_to puzzle_game_path("puzzle"),
+      :class => "btn btn-info" do %>
+      <i class="fas fa-save"></i> "Regresar"
+      <% end %>
+      <div><span></span></div>
+    </div>
+    <div class="card-body" id="start">
+      <h3 class="col-md-12 text-center" id="time">
+        <b id="hour">00:</b>
+        <b id="min">00:</b>
+        <b id="sec">00:</b>
+        <b id="milisec">00</b>
+      </h3>
+      <div class="container-fluid" id="container"></div>
+      <div id="insert">
+
+      </div>
+    </div>
+  </div>
+  <div class="card-footer">
+
+  </div>
+  <br>
+</div>
+<style media="screen">
+  td.pieza {
+    background-image: url(http://localhost:3000/uploads/prueba/subcategory<%= @image.id %>/<%= @image.id %>);
+    background-size: 400px 400px;
+    transition:.3s ease-in-out; -moz-transition:.3s
+    ease-in-out; -webkit-transition:.3s ease-in-out; -o-transition:.3s
+    ease-in-out; cursor:pointer;
+  }
+</style>
+
+<script>
+  var select = false;
+  var c = "inc";
+  var pos_s = "";
+  var id_s = "";
+
+  var arr_pos_r = new Array()
+  var arr_pos_a = new Array()
+
+  function mostrar(){
+    arr_pos_r.length = 0;
+    var piezas = get("piezas").value;
+    var tb = document.createElement('table');
+    tb.border = 1;
+    tb.align = 'center';
+    tb.cellPadding = 0;
+    tb.cellSpacing = 0;
+    var dp = document.createElement('div');
+    dp.id = 'posiciones';
+    dp.className = 'posic';
+    var ar = Math.sqrt(piezas);
+    var c = 0;
+    var tam_img = 400;
+    var pos_img = tam_img / ar;
+    for(var fil=1;fil<=ar;fil++){
+      var tr = document.createElement('tr');
+      for(var cel=1;cel<=ar;cel++){
+        c++;
+        var td = document.createElement('td');
+        td.className = 'pieza';
+        td.id = 'pos_'+c;
+        td.style.width = pos_img+'px';
+        td.style.height = pos_img+'px';
+        var dbp = document.createElement('div');
+        dbp.id = 'val_bp_'+c;
+        var p = Math.round(((pos_img*cel)-pos_img) * -1)+'px '+Math.round(((fil * pos_img)-pos_img) * -1)+'px';
+        td.style.backgroundPosition = p;
+        arr_pos_r.push(p);
+        dbp.innerHTML = p;
+        dp.appendChild(dbp);
+        dbp.hidden = true
+        td.onclick = function(){
+          cambiaBGP(this.id);
+          compruebaFin();
+        }
+        tr.appendChild(td);
+      }
+      tb.appendChild(tr);
+    }
+    if(!get("div_content")){
+      var val = document.getElementById('insert');
+      var cont = document.createElement('div');
+
+      cont.id = 'div_content';
+      cont.appendChild(tb);
+      cont.appendChild(dp);
+      val.appendChild(cont);
+    }else{
+      get("div_content").innerHTML = '';
+      get("div_content").appendChild(tb);
+      get("div_content").appendChild(dp);
+      get("posiciones").removeClass('posic');
+      get("posiciones").innerHTML = '';
+      get("posiciones").className = 'posic';
+    }
+  }
+
+  function barajar(){
+    var num_alt = null;
+    var arr = new Array();
+    var resp = "no";
+    var i = -1;
+    var repite = "no";
+    var pie = parseInt(get("piezas").value);
+    var pie1 = pie + 1;
+    while(arr.length < pie){
+      repite = "no";
+      num_alt = Math.floor(Math.random()*pie1);
+      if(num_alt != 0){
+        if(arr.length == 0){
+          i++;
+          arr[i] = num_alt;
+        }else{
+          for(j=0;j<=arr.length-1;j++){
+            if(arr[j] == num_alt){
+              repite = "si";
+            }
+          }
+          if(repite != "si"){
+            i++;
+            arr[i] = num_alt;
+          }
+        }
+      }
+    }
+
+    var id = 0;
+    for(k=0; k<=arr.length-1;k++){
+      id = k-(-1);
+      get("pos_"+id).style.backgroundPosition = get("val_bp_"+arr[k]).innerHTML;
+    }
+  }
+
+  function cambiaBGP(id){
+    if(select == false){
+      pos_s = get(id).style.backgroundPosition;
+      id_s = id;
+      select = true;
+      get(id_s).style.boxShadow = '1px 1px 14px #FFF,-1px -1px 14px #FFF, 1px -1px 14px #FFF,-1px 1px 14px #FFF';
+    }else{
+      var pos_n =  get(id).style.backgroundPosition;
+      var id_n = id;
+      c = "com";
+      select = false;
+    }
+
+    if(c == "com"){ get(id_n).style.backgroundPosition = pos_s; get(id_s).style.backgroundPosition = pos_n;
+      c = "inc";
+      get(id_s).style.boxShadow = '';
+    }
+  }
+
+  function compruebaFin(){
+    var pie = parseInt(get("piezas").value);
+    var fin = false;
+    arr_pos_a.length = 0;
+    for(var i=1;i<=pie;i++){
+      arr_pos_a.push(get("pos_"+i).style.backgroundPosition);
+    }
+    for(var j=0;j<arr_pos_r.length;j++){
+      if(arr_pos_r[j] != arr_pos_a[j]){
+        fin = false;
+        break;
+      }else{
+        fin = true;
+      }
+    }
+
+    setTimeout(function(){
+      if(fin){
+        var data = document.getElementById('time').textContent;
+        document.getElementById('time').setAttribute('id', 'saved')
+        $.ajax({
+          url : "/games/memory_log/puzzle_log",
+          data: {text: data, status: 'completado'},
+          type:'GET',
+          dataType: 'json',
+          success: function(response) {
+          }
+        });
+        var msg = new SpeechSynthesisUtterance();
+        var msga = "Felicidades, completaste el rompecabezas de: <%= @image.title %>";
+        // msg.volume = 1; // 0 to 1
+        msg.rate = 1; // 0.1 to 10
+        msg.pitch = 1.11; //0 to 2
+        msg.text = msga
+        msg.lang = 'es-ES';
+        speechSynthesis.speak(msg);
+        var x;
+        stop();
+
+
+        alert("COMPLETASTE <%= @image.title.upcase %>")
+      }
+    },600);
+  }
+
+  function get(id){
+    return document.getElementById(id);
+  }
+
+  $(document).ready(function() {
+    mostrar();
+    barajar();
+    get("piezas").onchange = function(){
+      mostrar();
+    }
+    get("barajar").onclick = function(){
+      barajar();
+    }
+
+  });
+  // CHRONOMETHER
+  var x;
+
+  $("#start").one("click", function () {
+    x = setInterval(timer, 10);
+  });
+
+  function stop() {
+    clearInterval(x);
+  } /* Stop */
+
+  var milisec = 0;
+  var sec = 0; /* holds incrementing value */
+  var min = 0;
+  var hour = 0;
+
+  /* Contains and outputs returned value of  function checkTime */
+
+  var miliSecOut = 0;
+  var secOut = 0;
+  var minOut = 0;
+  var hourOut = 0;
+
+  /* Output variable End */
+
+
+  function timer() {
+    /* Main Timer */
+    miliSecOut = checkTime(milisec);
+    secOut = checkTime(sec);
+    minOut = checkTime(min);
+    hourOut = checkTime(hour);
+
+    milisec = ++milisec;
+
+    if (milisec === 100) {
+      milisec = 0;
+      sec = ++sec;
+    }
+
+    if (sec == 60) {
+      min = ++min;
+      sec = 0;
+    }
+
+    if (min == 60) {
+      min = 0;
+      hour = ++hour;
+    }
+
+
+    document.getElementById("milisec").innerHTML = miliSecOut;
+    document.getElementById("sec").innerHTML = secOut+':';
+    document.getElementById("min").innerHTML = minOut+':';
+    document.getElementById("hour").innerHTML = hourOut+':';
+
+  }
+
+
+  /* Adds 0 when value is <10 */
+
+
+  function checkTime(i) {
+    if (i < 10) {
+      i = "0" + i;
+    }
+    return i;
+  }
+
+  function reset() {
+    /*Reset*/
+
+    milisec = 0;
+    sec = 0;
+    min = 0
+    hour = 0;
+
+    document.getElementById("milisec").innerHTML = "00:";
+    document.getElementById("sec").innerHTML = "00:";
+    document.getElementById("min").innerHTML = "00:";
+    document.getElementById("hour").innerHTML = "00";
+
+  }
+
+</script>

@@ -1,0 +1,102 @@
+<%= form_with(model: response, local: true) do |form| %>
+<% if response.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(response.errors.count, "error") %> prohibited this response from being saved:</h2>
+  <ul>
+    <% response.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="card border-info">
+  <div class="card-header">
+    <div onclick="myFunction('', '<%= @questionnaire.name %>')"
+      onclick="return <%= @questionnaire.name.present? ? true : false %>">
+      <%= @questionnaire.name %>
+      <i class="fas fa-volume-up fa-lg" style="color: blue;"></i>
+    </div>
+  </div>
+  <%= form.hidden_field :questionnaire_id, value: @questionnaire.id %>
+  <div class="card-body">
+    <div class="card-deck row">
+      <% @questionnaire.questions.each do | question | %>
+      <div class="col-md-6">
+        <div class="card border-info">
+          <div class="card-body">
+            <div onclick="myFunction('', '<%= question.name %>')"
+              onclick="return <%= question.name.present? ? true : false %>">
+              <%= question.name %>
+              <%= hidden_field 'response[question_id]', question.id%>
+              <i class="fas fa-volume-up fa-lg" style="color: blue;"></i>
+            </div>
+            <br>
+            <% if question.question_type == "pregunta_con_respuesta_de_audio" %>
+            <div class="col-md-6">
+              <%= form.hidden_field :response_type, value: 2 %>
+              <%= render 'answer_with_audio', f: form, question: question %>
+            </div>
+            <br>
+
+            <% else %>
+            <%= form.hidden_field :response_type, value: 1 %>
+            <div class="row">
+              <% question.answers.each do | answer | %>
+                <div class="col-md-6">
+                  <div class="card border-black">
+                    <div class="form-check">
+                      <%= form.radio_button "answer_id[#{question.id}]", answer.id, id:"#{answer.id}" , class:'form-check-input', onclick:"myFunction('', '#{answer.name}')" %>
+                      <label class="form-check-label" for="<%=answer.id%>">
+                        <%= answer.name %>
+                        <i class="fas fa-volume-up fa-lg" style="color: blue;"></i>
+                        <%= show_image(answer.answer_file) %>
+                      </label>
+                    </div>
+                  </div>
+                  <br><br>
+                </div>
+              <% end %>
+            </div>
+            <% end %>
+          </div>
+        </div>
+        <br><br>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="actions text-right">
+    <%= form.submit "Guardar", class: 'btn btn-success' %>
+  </div>
+</div>
+
+<% end %>
+
+<style media="screen">
+  /* HIDE RADIO */
+[type=radio] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked{
+  outline: 2px solid #f00;
+}
+</style>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const getMic = document.getElementById('mic');
+    const recordButton = document.getElementById('record');
+    const list = document.getElementById('recordings');
+  });
+</script>

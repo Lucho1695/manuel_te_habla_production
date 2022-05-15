@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="luiscarlosgarcialucho@gmail.com">
+
+  <title>Manuel te Habla</title>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://unpkg.com/vis-timeline@7.5.1/standalone/umd/vis-timeline-graph2d.min.js"></script>
+  <link href="https://unpkg.com/vis-timeline@latest/styles/vis-timeline-graph2d.min.css" rel="stylesheet" type="text/css" />
+
+
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</head>
+
+<% if current_user.nil? %>
+  <body class="body_user">
+    <!-- Page Wrapper -->
+    <%= render "layouts/not_user" %>
+  </body>
+<% elsif current_user.user_roles == "Niño" %>
+  <body class="body_user">
+    <!-- Page Wrapper -->
+    <%= render "layouts/user_front" %>
+  </body>
+<% elsif current_user.user_roles== "SuperAdmin" || current_user.user_roles== "Adulto Responsable"  %>
+  <body class="super_admin">
+    <!-- Page Wrapper -->
+    <%= render "layouts/admin_front" %>
+  </body>
+<% end %>
+
+</html>
+
+<script>
+  function myFunction(mensaje, val) {
+    var msg = new SpeechSynthesisUtterance();
+    var msga = mensaje + val;
+    // msg.volume = 1; // 0 to 1
+    msg.rate = 1; // 0.1 to 10
+    msg.pitch = 1.11; //0 to 2
+    msg.text = msga
+    msg.lang = 'es-ES';
+    speechSynthesis.speak(msg);
+  }
+
+  window.onload = function(){
+    if ($(window).width() < 992) {
+      $('#banner').attr("id","newId");
+    }
+    else {
+      $('#newId').attr("id","banner");
+    }
+  }
+
+  window.onresize = function(){
+    if ($(window).width() < 992) {
+      $('#banner').attr("id","newId");
+    }
+    else {
+      $('#newId').attr("id","banner");
+    }
+  }
+
+
+</script>

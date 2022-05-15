@@ -1,0 +1,99 @@
+<%= form_with(model: category, local: true) do |form| %>
+  <% if category.errors.any? %>
+    <div class="col-md-12 alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong><%= pluralize(category.errors.count, "error") %></strong> prohibited this category from being saved:
+      <ul>
+        <% category.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12 row">
+        <%= form.label "Nombre de la categoria", class: "col-md-3 form-label text-right" %>
+        <%= form.text_field :name, class: "form-control col-md-7", required: true %>
+        <br><br>
+      </div>
+      <div class="col-md-12 row">
+        <%= form.label "Niños que pueden ver esta categoria" , class: "col-md-3 form-label text-right"%>
+        <%= form.collection_select :users, User.find(@users), :id, :name, { include_blank: false, selected: @ids}, placeholder: "seleccione", class: 'select2 form-control col-md-7', multiple: true, required: true %>
+        <br><br>
+        <%= form.label "Seleccionar todos los niños:" , class: "col-md-3 form-label text-right"%>
+        <input class="form-control col-md-1" type="checkbox" id="checkbox" >
+        <br><br>
+      </div>
+      <!-- <#%= form.label "Nivel", class: "col-md-3 form-label text-right" %>
+      <#%= form.collection_select :level_ids, Level.all, :id, :name, { multiple: true}, class: 'form-control col-md-3' %> -->
+      <!-- <#%= form.label "Visualización pública de categoría:", class: "col-md-3 form-label text-right" %>
+      <#%= form.check_box :public, class: 'text-left form-control col-md-1' %> -->
+    </div>
+    <%= form.label "Imagen Principal de la categoría:", class: "col-md-3 form-label text-right" %>
+    <%= form.file_field :category_image, class: "col-md-8" %>
+    <br><br>
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 text-center">
+        <a href="<%= category.category_image %>" target="_blank" onclick="return <%= category.category_image.present? ? true : false %>"><%= show_image(category.category_image) %></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-info">
+    <div class="card-header" id="header_subcategories">
+      <h1><b class="text">Imagenes de la Categoría</b></h1>
+      <h4>Añada las imagenes que harán parte la categoría:</h4>
+    </div>
+    <div class="card-body" id="card_subcategory">
+      <div class="col-md-12 text-center">
+        <%= link_to_add_association(form, :subcategories, data: {"association-insertion-node" => "#theme_body", "association-insertion-method" => "append" }, partial: "subcategory_fields" ) do %>
+          <button type='button' class='btn btn-success'><span class='fas fa-plus'></span>Agregar Imagen</button>
+        <% end %>
+      </div>
+      <br><br>
+      <div class="card-deck row">
+        <div class="col-md-12 row" id="theme_body">
+          <%= form.fields_for :subcategories do | subcategory | %>
+            <%= render 'subcategory_fields', f: subcategory, subcategories: subcategory %>
+          <% end %>
+        </div>
+      </div>
+      <div class="col-md-12 text-center">
+        <%= link_to_add_association(form, :subcategories, data: {"association-insertion-node" => "#theme_body", "association-insertion-method" => "append" }, partial: "subcategory_fields" ) do %>
+          <button type='button' class='btn btn-success'><span class='fas fa-plus'></span>Agregar Imagen</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <br>
+  <div class="actions">
+    <%= form.submit "Guardar", class: "btn btn-success float-right" %>
+  </div>
+<% end %>
+
+<script>
+
+  $("#checkbox").click(function(){
+    if($("#checkbox").is(':checked') ){
+      $(".select2  > option").prop("selected", true);
+    }else{
+      $(".select2  > option").prop("selected", false);
+    }
+    $(".select2").trigger("change");// Trigger change to select 2
+  });
+
+  $('.select2').select2({
+    language: "es",
+    multiple: true,
+    placeholder: "Seleccione",
+    formatNoMatches: function() {
+      return '';
+    },
+  });
+</script>

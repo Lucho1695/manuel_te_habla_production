@@ -1,0 +1,15 @@
+<div class="card border-info">
+  <div class="card-header border-primary">
+    <div class="row">
+      <div class="col-md-10">
+        <h1><b class="titulos_admin">Estas editando una nueva palabra</b></h1>
+      </div>
+      <div class="col-md-2">
+        <%= link_to 'Regresar', say_ideas_path, class: "btn btn-warning float-right" %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <%= render 'form', say_idea: @say_idea %>
+  </div>
+</div>

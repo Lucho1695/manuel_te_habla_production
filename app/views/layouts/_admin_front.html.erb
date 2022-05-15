@@ -1,0 +1,38 @@
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+  <!-- Sidebar -->
+  <%= render "layouts/shared/admin/slidebar"%>
+  <!-- End of Sidebar -->
+
+  <!-- Content Wrapper -->
+  <div id="content-wrapper" class="d-flex flex-column">
+    <!-- Main Content -->
+    <!-- Topbar -->
+    <%= render "layouts/shared/admin/topnavbar" %>
+
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+      <!-- Content Row -->
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="card shadow mb-4">
+            <%= yield%>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  <% if request.fullpath == "/people/#{current_user.id}/edit" %>
+    <% else %>
+    <% if current_user.avatar.file.nil? %>
+      alert("Debe agregar una imagen a su perfil para continuar")
+      window.location.href = "http://localhost:3000/people/<%=current_user.id%>/edit";
+    <% end %>
+  <% end %>
+</script>

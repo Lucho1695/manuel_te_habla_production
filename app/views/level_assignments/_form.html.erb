@@ -1,0 +1,40 @@
+<%= form_with(model: level_assignment, local: true) do |form| %>
+  <% if level_assignment.errors.any? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong><%= pluralize(level_assignment.errors.count, "error") %></strong> no se pudo guardar el nivel:
+      <ul>
+        <% level_assignment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body">
+    <div class="form-group row">
+        <%= form.label "Nivel", class: "col-md-3 form-label text-right" %>
+        <%= collection_select(:level_assignment, :level, Level.all.order('name'), :id, :name, {:include_blank => "Seleccione", }, class: "form-control select2", required: true, multiple: true) %>
+        <%= form.label "Persona", class: "col-md-3 form-label text-right" %>
+        <%= collection_select(:level_assignment, :people, Person.all.order('name'), :id, :name, {:include_blank => "Seleccione", }, class: "form-control select2", required: true, multiple: true) %>
+    </div>
+    <div class="actions">
+      <%= form.submit "Guardar", class: "btn btn-success float-right" %>
+    </div>
+  </div>
+<% end %>
+
+
+<script>
+  $('.select2').select2({
+    language: "es",
+    multiple: true,
+    placeholder: "Seleccione",
+    formatNoMatches: function() {
+      return '';
+    },
+  });
+
+</script>

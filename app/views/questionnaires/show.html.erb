@@ -1,0 +1,46 @@
+<div class="card border-info">
+  <div class="card-header" id='card-header'>
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-6">
+          <h1><b class="titulos_admin">
+            INFORMACIÓN DEL CUESTIONARIO
+          </b></h1>
+        </div>
+        <div class="col-md-6 float-right">
+          <%= link_to 'Regresar', questionnaires_path, class: 'btn btn-success text-black float-right' %>
+          <%= link_to 'Editar', edit_questionnaire_path(@questionnaire), class: 'btn btn-warning text-black float-right' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="card-header">
+      <h2><strong>Nombre del cuestionario:</strong>
+        <%= @questionnaire.name %>
+      </h2>
+    </div>
+    <% if current_user.user_roles = "SuperAdmin" %>
+      <div class="card-body bg-info text-center">
+        <h1><b class="text">
+          Preguntas
+        </b></h1>
+      </div>
+      <table class="table table-bordered table-hover table-stripped text-center">
+        <thead>
+          <th><h3><b>Nombre</b><h3></th>
+          <th><h3><b>Tipo de pregunta</b><h3></th>
+        </thead>
+        <tbody>
+
+          <% @questionnaire.questions.each do | question |%>
+          <tr>
+            <td><h3><%= question.name %></h3></td>
+            <td><h3><%= question.question_type %><h3></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

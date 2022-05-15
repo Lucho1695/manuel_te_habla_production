@@ -1,0 +1,60 @@
+<div class="card-body">
+  <!--Strats Title -->
+  <div class="col-md-12">
+    <h1 class="text-center">
+      <img src="../../../titles_say_ideas.png" style="max-width:70%">
+    </h1>
+    <!--Strats New Button -->
+  </div>
+  <!-- Ends Title-->
+
+  <div class="col-md-12">
+    <textarea class="col-md-12" rows="4" id="alltext" disabled></textarea>
+    <div class="col-md-12 row">
+      <button class="btn btn-primary col-md-3" onclick="PlayText()">Reproducir</button>
+      <%= link_to "Limpiar", say_ideas_path, class: "btn btn-warning col-md-3", onclick: "ClearText()"%>
+    </div>
+  </div>
+  <br>
+  <div class="row" id="results">
+    <% @say_ideas.each do | say_idea | %>
+    <% if say_idea.say_idea_type == 2 %>
+    <div class="col-md-4">
+      <div class="card border-info">
+        <div class="card-header">
+          <%= say_idea.title %>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <%= link_to complement_say_ideas_path(id: say_idea, last_idea: @last_idea) do %>
+              <%= show_image_say_idea(say_idea) %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+    <script>
+      document.getElementById("alltext").value += "<%= @last_idea %> "
+    </script>
+    <% end %>
+  </div>
+
+  <script>
+
+    function ClearText() {
+      document.getElementById("alltext").value = ""
+    }
+    function PlayText(){
+      var value = document.getElementById("alltext").value
+      var msg = new SpeechSynthesisUtterance();
+      var msga = value;
+      // msg.volume = 1; // 0 to 1
+      msg.rate = 1; // 0.1 to 10
+      msg.pitch = 1.11; //0 to 2
+      msg.text = msga
+      msg.lang = 'es-ES';
+      speechSynthesis.speak(msg);
+    }
+  </script>
+</div>

@@ -1,0 +1,34 @@
+<div class="card border-primary">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <%= render "structure/index_head" %>
+    </div>
+  </div>
+  <div class="col-md-12 row">
+    <div class="card-body table-responsive">
+      <table class="table table-bordered" id="dataTable">
+        <thead class="text-center">
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td><%= user.name %></td>
+              <td><%= user.email %></td>
+              <td><%= user.user_roles %></td>
+              <td><%= link_to 'Mostrar', user, class: "btn btn-success text-white" %></td>
+              <td><%= link_to 'Editar', edit_person_path(user), class: "btn btn-warning text-white" %></td>
+              <td><%= link_to 'Eliminar', user, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger text-white" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div class="card border-info">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render "structure/index_head" %>
+        <% if !current_user.nil? && current_user.user_roles == "SuperAdmin" %>
+          <%= link_to 'Nueva Nivel', new_level_path, class: "btn btn-info float-right text-white" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card-body">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Personas en el nivel</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @levels.each do |level| %>
+            <tr>
+              <td><%= level.name %></td>
+              <td><%= level.comment %></td>
+              <td><%= link_to 'Mostrar', level, class: "text-white btn btn-success" %></td>
+              <td><%= link_to 'Editar', edit_level_path(level), class: "text-white btn btn-warning" %></td>
+              <td><%= link_to 'Eliminar', level, method: :delete, data: { confirm: 'Are you sure?' }, class: "text-white btn btn-danger" %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

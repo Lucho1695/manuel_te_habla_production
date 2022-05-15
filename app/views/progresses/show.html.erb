@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Goal:</strong>
+  <%= @progress.goal_id %>
+</p>
+
+<p>
+  <strong>Total time:</strong>
+  <%= @progress.total_time %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @progress.level_id %>
+</p>
+
+<%= link_to "Editar", edit_progress_path(@progress) %> |
+<%= link_to "Regresar", progresses_path %>

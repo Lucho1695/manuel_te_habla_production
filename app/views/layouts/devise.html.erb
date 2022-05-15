@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html class="html" lang="en">
+
+<head>
+
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="luiscarlosgarcialucho@gmail.com">
+
+
+  <title>Manuel te Habla</title>
+
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+</head>
+
+<body class="html">
+  <br><br><br><br><br><br>
+  <div class="bg-gradient-warning container">
+    <!-- Outer Row -->
+    <div class="row justify-content-center">
+
+      <div class="col-xl-12 col-lg-12 col-md-12">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+          <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+              <div class="col-lg-6 d-none d-lg-block bg-warning" >
+                <div id="image_logo_login">
+
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="p-5">
+                  <!--Starts row of warnings-->
+                  <div class="row">
+                    <div class="col-md-12">
+                      <!--warnings section begings -->
+                      <% if notice || alert %>
+                        <%= render "layouts/alerts"%>
+                      <% end %>
+                      <%= render "devise/shared/error_messages", resource: resource %>
+
+                    </div>
+                  </div>
+
+                  <div class="text-center">
+                    <h1 class="h4 text-gray-900 mb-4">Bienvenido a manuel te habla!</h1>
+                  </div>
+                  <div class="form_container_bottom">
+                    <%= yield %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</body>
+</html>

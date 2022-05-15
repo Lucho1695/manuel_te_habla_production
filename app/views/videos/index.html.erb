@@ -1,0 +1,24 @@
+<div class="card border-primary">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <%= render "structure/index_head" %>
+      <hr id="hr">
+      <hr id="hr">
+    </div>
+  </div>
+  <div class="row col-md-12">
+    <div class="card-body">
+      <div class="text-right">
+        <% if !current_user.nil? %>
+          <% if current_user.user_roles != "Niño" %>
+            <%= link_to 'Añadir nuevo video', new_video_path, class: "btn btn-success text-black" %>
+          <% end %>
+          <br>
+          <br>
+        <% end %>
+      </div>
+      <%= render "index_video" %>
+
+    </div>
+  </div>
+</div>

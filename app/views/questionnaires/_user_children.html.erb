@@ -1,0 +1,68 @@
+<div class="card border-primary">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <%= render "structure/index_head" %>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div class="card-body">
+      <!-- Start Table -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Ver respuestas anteriores</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @questionnaires.each do |questionnaire| %>
+                  <tr>
+                    <td onclick="myFunction('', '<%= questionnaire.name %>')"
+                     onclick="return <%= questionnaire.name.present? ? true : false %>">
+                     <%= questionnaire.name %>
+                   </td>
+                   <% if @response_questionnaires.include? questionnaire.id %>
+                     <td><%= link_to "Respuestas anteriores", show_responses_path(questionnaire.id), class: "btn btn-primary" %></td>
+                   <% else %>
+                      <td>No se han contestado aun</td>
+                   <% end %>
+                   <td><%= link_to "Responder", new_responses_path(questionnaire_id: questionnaire.id), class: 'btn btn-success' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Ends Table -->
+
+      <style media="screen">
+
+        .categories {
+          border-radius: 25px;
+          background: white;
+          padding: 20px;
+          width: 100%;
+          height: auto;
+        }
+
+        .navButton {
+          color: white;
+          font-family: Helvetica, Arial, sans-serif;
+          text-align:center;
+          display: inline-block;
+          position: relative;
+        }
+        .navButton:hover{
+          background: lightgray;
+          color: gray;
+        }
+      </style>
+
+    </div>
+  </div>
+</div>

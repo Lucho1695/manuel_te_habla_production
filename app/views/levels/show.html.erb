@@ -1,0 +1,48 @@
+<div class="card border-info">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="col-md-10">
+          <h1><b class="text">
+            INFORMACIÓN DEL NIVEL
+          </b></h1>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <%= link_to 'Regresar', levels_path, class: 'btn btn-success text-white float-right' %>
+        <%= link_to 'Editar', edit_level_path(@level), class: 'btn btn-warning text-white float-right' %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <strong>Nombre:</strong>
+    <%= @level.name %>
+    <br>
+    <strong>Comentario:</strong>
+    <%= @level.comment %>
+
+
+    <% if current_user.user_roles = "SuperAdmin" %>
+      <div class="card-body bg-info">
+        <h1><b class="text">
+          Niños del nivel
+        </b></h1>
+      </div>
+      <table class="table table-hover table-stripped">
+        <thead>
+          <th>Nombre</th>
+          <th>Correo</th>
+        </thead>
+        <tbody>
+          <% @level.people.each do | person |%>
+            <tr>
+              <td><%= person.name %></td>
+              <td><%= person.email %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% end %>
+  </div>
+</div>

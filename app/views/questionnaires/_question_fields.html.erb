@@ -1,0 +1,34 @@
+<div class="col-md-12">
+  <div class="nested-fields">
+    <div class="card border-info">
+      <div class="card-header">
+        <div class='form-group'>
+          <%= f.select :question_type,
+          options_for_select(Question.question_type_select, selected: f.object.question_type),
+          {include_blank: "Seleccione tipo de pregunta"}, {class:'form-control question_options'} %>
+        </div>
+        <%= f.hidden_field :_destroy %>
+        <%= f.text_field :name, placeholder: 'Debe seleccionar un tipo de pregunta', class: 'form-control name', required: true %>
+        <div class='form-group'>
+          <br><br>
+          <%= link_to_add_association(f, :answers, data: {"association-insertion-method" => "append" }, partial: "answer_fields", class: "answer_fields" ) do %>
+            <button type='button' class='btn btn-primary'><span class='fas fa-plus'></span>Agregar Respuesta</button>
+          <% end %>
+          <br>
+          <div class="col-md-12 row" id="this">
+            <%= f.fields_for :answers do |answer| %>
+              <%= render 'answer_fields', f: answer, answer: answer %>
+            <% end %>
+          </div>
+          <br><br>
+        </div>
+
+        <small>
+          <%= link_to_remove_association '<span class="glyphicon glyphicon-minus white"></span> Eliminar pregunta'.html_safe, f, class: 'btn btn-danger text-white' %>
+        </small>
+      </div>
+
+    </div>
+    <br><br>
+  </div>
+</div>

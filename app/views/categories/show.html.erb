@@ -1,0 +1,43 @@
+<div class="card border-info">
+  <% if !current_user.nil? %>
+    <% if current_user.user_roles == "SuperAdmin"  %>
+      <%= render "structure/show_head" %>
+    <% else %>
+      <%= render "show_head" %>
+    <% end %>
+  <% else %>
+    <%= render "show_head" %>
+  <% end %>
+
+  <div class="card-body">
+    <div class="col-md-12 row">
+      <% @category.subcategories.each do | category | %>
+        <div class="col-md-4">
+          <div class="card border-dark" id="shadow">
+            <div class="card-body">
+              <div class="col-md-12 text-center">
+                <a onclick="myFunction('', '<%= category.title %>')"
+                  onclick="return <%= category.subcategories_image.present? ? true : false %>">
+                  <%= show_image(category.subcategories_image) %>
+                </a>
+              </div>
+            </div>
+            <div class="card-footer text-center" style="background: <%= '#' + "%06x" % (rand * 0xaaaaa)%>;
+            border-radius: 1em/5em;" onClick="myFunction('', '<%= category.title %>')">
+              <b class="text-white shadow"><h1><%= category.title %></h1></b>
+            </div>
+          </div>
+          <div class="">
+            <br><br>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<style media="screen">
+  #shadow{
+    box-shadow: 5px 5px 5px gray;
+  }
+</style>

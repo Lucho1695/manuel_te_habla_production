@@ -1,0 +1,32 @@
+<%= form_with(model: progress, local: true) do |form| %>
+  <% if progress.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(progress.errors.count, "error") %> prohibited this progress from being saved:</h2>
+
+      <ul>
+        <% progress.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :goal_id %>
+    <%= form.text_field :goal_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :total_time %>
+    <%= form.text_field :total_time %>
+  </div>
+
+  <div class="field">
+    <%= form.label :level_id %>
+    <%= form.text_field :level_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

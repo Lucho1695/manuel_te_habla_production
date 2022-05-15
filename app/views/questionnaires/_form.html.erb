@@ -1,0 +1,52 @@
+<%= form_with(model: questionnaire, local: true) do |form| %>
+  <% if questionnaire.errors.any? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong><%= pluralize(questionnaire.errors.count, "error") %></strong> No se pudo guardar el Cuestionario:
+      <ul>
+        <% questionnaire.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="card-body">
+    <div class="form-group row">
+      <%= form.label "Nombre del Cuestionario", class: "col-md-3 form-label text-right" %>
+      <%= form.text_field :name, class: "form-control col-md-9", required: true %>
+    </div>
+
+    <!-- preguntas -->
+    <div class="card border-info">
+      <div class="card-header">
+      </div>
+      <div class="card-body">
+        <div class="col-md-12 row">
+          <div class="col-md-12">
+            <div class="card-deck row">
+              <div class="col-md-12 row" id="theme_body">
+                <%= form.fields_for :questions do | question | %>
+                  <%= render 'question_fields', f: question, question: question %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <br><br>
+          <div class="col-md-12 text-center">
+            <%= link_to_add_association(form, :questions, partial: "question_fields", id: 'questions' ) do %>
+              <button type='button' class='btn btn-primary'><span class='fas fa-plus'></span>Agregar Pregunta</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="text-right">
+    <%= form.submit "Guardar", class: 'btn btn-success' %>
+  </div>
+<% end %>

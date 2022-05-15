@@ -1,0 +1,18 @@
+<div class="card border-primary">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <%= render "structure/index_head" %>
+      <hr id="hr">
+      <hr id="hr">
+    </div>
+  </div>
+  <div class="row col-md-12">
+    <div class="card-body">
+      <% if current_user&.user_roles == "SuperAdmin" || current_user&.user_roles == "Adulto Responsable" %>
+        <%= render "index_admin" %>
+      <% elsif current_user.nil? || current_user&.user_roles == "Niño" %>
+        <%= render "index_user" %>
+      <% end %>
+    </div>
+  </div>
+</div>

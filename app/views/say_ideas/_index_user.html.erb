@@ -1,0 +1,48 @@
+<div class="col-md-12">
+  <textarea class="col-md-12" rows="4" id="alltext" disabled></textarea>
+  <div class="col-md-12 row">
+    <button class="btn btn-primary col-md-3" onclick="PlayText()">Reproducir</button>
+    <%= link_to "Limpiar", say_ideas_path, class: "btn btn-warning col-md-3", onclick: "ClearText()"%>
+  </div>
+</div>
+<br>
+<div class="row" id="results">
+  <% @say_ideas.each do | say_idea | %>
+    <% if say_idea.say_idea_type == 1 %>
+      <div class="col-md-4">
+        <div class="card border-info">
+          <div class="card-header text-center">
+            <h3>
+              <%= say_idea.title %>
+            </h3>
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <%= link_to verbs_say_ideas_path(id: say_idea.id) do %>
+                <%= show_image_say_idea(say_idea) %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<script>
+
+  function ClearText() {
+    document.getElementById("alltext").value = ""
+  }
+  function PlayText(){
+    var value = document.getElementById("alltext").value
+    var msg = new SpeechSynthesisUtterance();
+    var msga = value;
+    // msg.volume = 1; // 0 to 1
+    msg.rate = 1; // 0.1 to 10
+    msg.pitch = 1.11; //0 to 2
+    msg.text = msga
+    msg.lang = 'es-ES';
+    speechSynthesis.speak(msg);
+  }
+</script>

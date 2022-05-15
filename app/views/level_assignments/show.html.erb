@@ -1,0 +1,24 @@
+<div class="card border-info">
+  <p id="notice"><%= notice %></p>
+  <div class="card-header" id='card-header'>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>
+          INFORMACIÓN DEL NIVEL
+        </h3>
+      </div>
+      <div class="col-md-6">
+        <%= link_to 'Regresar', level_assignments_path, class: 'btn btn-success text-white float-right' %>
+        <%= link_to 'Editar', edit_level_assignment_path(@level_assignment), class: 'btn btn-warning text-white float-right' %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <strong>Nombre:</strong>
+    <%= @level_assignment.name %>
+    <br>
+    <strong>Comentario:</strong>
+    <%= @level_assignment.comment %>
+
+  </div>
+</div>

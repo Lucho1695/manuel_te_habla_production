@@ -1,0 +1,69 @@
+<%= form_with(model: user, local: true) do |form| %>
+<div class="col-md-12">
+  <!--Strarts Section Errors-->
+  <% if user.errors.any? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong><%= pluralize(user.errors.count, "error") %></strong> El usuario no se puede guardar:
+      <ul>
+        <% user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <!--Ends Section Errors-->
+</div>
+
+<div class="col-md-12" id="moodle_users_form">
+  <div class="form-group row ">
+    <%= form.label 'Correo', 'Correo', class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= form.text_field :email, class: "form-control", id: 'user_email' %>
+    </div>
+    <!-- Ends email -->
+
+    <%= form.label 'Nombre', 'Nombre', class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= form.text_field :name, class: "form-control", id: 'user_name' %>
+    </div>
+    <!-- Ends name -->
+  </div>
+
+  <div class="form-group row">
+    <%= form.label 'Contraseña', 'Contraseña', class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= form.password_field :password, class: "form-control", id: 'user_password' %>
+    </div>
+    <!-- Ends password -->
+
+    <%= form.label 'Confirmar Contraseña', 'Confirmar Contraseña', class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <%= form.password_field :password_confirmation, class: "form-control", id: 'user_confirm_password' %>
+    </div>
+    <!-- Ends password_confirmation -->
+  </div>
+  <div class="form-group row">
+    <%= form.label 'Foto', 'Foto', class: "col-md-2 control-label" %>
+    <div class="col-md-4">
+      <a href="<%= user.avatar %>" target="_blank" onclick="return <%= user.avatar.present? ? true : false %>"><%= show_image(user.avatar) %></a>
+      <%= form.file_field :avatar %>
+    </div>
+    <% if current_user.user_roles== 0 %>
+      <%= form.label "Rol de usuario", class: 'col-md-2 control-label'%>
+      <div class="col-md-4">
+        <%= form.select(:user_role, options_for_select(User.user_roles), {}, {class: "form-control"}) %>
+      </div>
+
+    <% end %>
+  </div>
+  <div class="form-group row float-right">
+    <div class="actions col-md-12">
+      <%= form.submit class: 'btn btn-success', id: 'user_save' %>
+    </div>
+  </div>
+</div>
+
+<% end %>

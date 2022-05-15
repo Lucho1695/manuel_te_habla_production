@@ -1,0 +1,193 @@
+<style type="text/css">
+  body, html {
+    font-family: sans-serif;
+  }
+</style>
+<div class="col-md-12">
+  <div class="card border-info">
+    <div class="card-header">
+      <h1 class="text-center">
+        Registro de Usuarios
+      </h1>
+    </div>
+    <div class="card-body">
+      <div class="col-md-12">
+        <form>
+          <input type="hidden" name="filter" id="filter" value="<%= params[:filter] %>">
+          <div class="col-md-12 row">
+            <div class="col-md-12 row">
+              <label class="col-md-1 text-right">Nombre: </label>
+              <% if current_user.user_roles == "SuperAdmin" %>
+                <%= collection_select(:get, :person_id, Person.all, :id, :name, { include_blank: "Seleccione nombre del niño" }, class:'form-control col-md-11')%>
+              <% elsif current_user.user_roles == "Adulto Responsable" %>
+                <%= collection_select(:get, :person_id, Person.where(user_id: current_user.id), :id, :name, { include_blank: "Seleccione nombre del niño" }, class:'form-control col-md-11')%>
+              <% end %>
+            </div>
+            <br><br>
+            <div class="col-md-12 row">
+              <label class="col-md-1 text-right">Evento: </label>
+              <%= collection_select(:get, :user_log_id, UserLog.all.uniq { | k | k.note }, :note, :note, { include_blank: "Seleccione el evento realizado" }, class:'form-control col-md-11')%>
+            </div>
+            <br><br>
+            <div class="text-right col-md-12">
+              <button type="submit" name="sub" class="col-md-2 btn btn-success"><b>Buscar</b></button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-8">
+          <div id="visualization"></div>
+        </div>
+        <div class="col-md-4">
+          <div class="card" id="log">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+
+
+<script type="text/javascript">
+  var logs = []
+  <% @users.each do | user | %>
+    logs.push({
+      id: "<%= user %>",
+      content: "<%=user %>",
+      value: "<%= user %>"
+    })
+  <% end %>
+  // https://motocal.com/
+  var groups = new vis.DataSet(logs);
+
+  // function to make all groups visible again
+  function showAllGroups(){
+    groups.forEach(function(group){
+      groups.update({id: group.id, visible: true});
+    })
+  };
+
+  // create a dataset with items
+  // note that months are zero-based in the JavaScript Date object, so month 3 is April
+  var data = []
+  <% @user_logs.each do | user_log | %>
+  <% if !user_log.user.nil?%>
+  var group = "<%= user_log.user.name %>"
+  <%else %>
+  var group = "<%= user_log.ip_address %>"
+  <% end %>
+
+
+  data.push({
+    start: "<%= user_log.created_at.to_time.iso8601 %>",
+    group: group,
+    content: "<%= user_log.note %>",
+    value: "<%= user_log %>",
+    id: "<%= user_log.id %>"
+  })
+  <% end %>
+
+  var items = new vis.DataSet(data)
+
+
+  // create visualization
+  var container = document.getElementById('visualization');
+  var options = {
+    // option groupOrder can be a property name or a sort function
+    // the sort function must compare two groups and return a value
+    //     > 0 when a > b
+    //     < 0 when a < b
+    //       0 when a == b
+    groupOrder: function (a, b) {
+      return a.value - b.value;
+    },
+    groupOrderSwap: function (a, b, groups) {
+      var v = a.value;
+      a.value = b.value;
+      b.value = v;
+    },
+    groupTemplate: function(group){
+      var container = document.createElement('div');
+      var label = document.createElement('span');
+      label.innerHTML = group.content + ' ';
+      container.insertAdjacentElement('afterBegin',label);
+      var hide = document.createElement('button');
+      hide.addEventListener('click',function(){
+        groups.update({id: group.id, visible: false});
+      });
+      return container;
+    },
+    orientation: 'both',
+    onInitialDrawComplete: function() { logEvent('Timeline initial draw completed', {}); }
+  };
+
+  var timeline = new vis.Timeline(container);
+  timeline.setOptions(options);
+  timeline.setGroups(groups);
+  timeline.setItems(items);
+
+
+  timeline.on('doubleClick', function (properties) {
+    $.ajax({
+      url : "user_logs/"+properties['item'],
+      type:'GET',
+      dataType: 'json',
+      success: function(response) {
+        var user_log = response['user_log']
+        var user_log_withs = response['user_log_withs']
+        var user = response['user']
+        if (user == null) {
+          user = {'name': ""}
+        }
+        document.getElementById("log").innerHTML =
+        '<div class="card-header text-center bg-primary">'+
+        '<h4><b class="text-white">'+ user_log['note']+'</b></h4>'+
+        '</div>' +
+        '<div class="card-body">' +
+          '<h5><b>Nombre:</b> '+ '<td>'+ user['name'] +'</td></h5>'+
+          '<h5><b>IP:</b> '+ '<td>'+ user_log['ip_address'] +'</td></h5>'+
+          '<h5><b>Fecha:</b> '+ '<td>'+ new Date (user_log['created_at']).toLocaleString('es-ES', options) +'</td></h5>'+
+          '<h5 id="more_info"></h5>'+
+        '</div>'
+
+        if (user_log['have_more_description'] == true) {
+          document.getElementById('more_info').innerHTML =
+          '<h5><b>Estado: </b>'+ user_log_withs[0]['data']['status'] +'</h5>'+
+          '<h5><b>Tiempo transcurrido: </b>'+ user_log_withs[0]['data']['time'] +'</h5>'
+          }
+        }
+    });
+  });
+
+  function stringifyObject (object) {
+    if (!object) return;
+    var replacer = function(key, value) {
+      if (value && value.tagName) {
+        return "DOM Element";
+      } else {
+        return value;
+      }
+    }
+    return JSON.stringify(object, replacer)
+  }
+
+  function logEvent(event, properties) {
+    var log = document.getElementById('log');
+    var msg = document.createElement('div');
+    msg.innerHTML = 'event=' + JSON.stringify(event) + ', ' +
+    'properties=' + stringifyObject(properties);
+    log.firstChild ? log.insertBefore(msg, log.firstChild) : log.appendChild(msg);
+  }
+
+  function setHoveredItem(id) {
+    var hoveredItem = document.getElementById('hoveredItem');
+    hoveredItem.innerHTML = 'hoveredItem=' + id;
+  }
+
+
+</script>

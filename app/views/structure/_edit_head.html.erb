@@ -1,0 +1,29 @@
+<div class="row">
+  <!--Strats Title -->
+  <div class="col-md-12">
+    <div class="pb-2 mt-4 mb-2 border-bottom" id="title">
+      <!--Strats edit Button -->
+      <div class="float-right">
+        <div class="btn-group" >
+          <%= link_to url_for({controller: controller.controller_name,
+            action: :show}), class: 'btn btn-success', id: 'show_button' do%>
+            <i class="fas fa-edit"></i>
+            <%= t("general.show") + " " + t("application.#{controller.controller_name}") %>
+          <% end %>
+        </div>
+        <div class="btn-group" >
+          <%= link_to url_for({controller: controller.controller_name, action: :index}), class: 'btn btn-success', id: 'index_button' do%>
+          <i class="fas fa-list-ul"></i> Index <%= t("application.#{controller.controller_name}") %>
+          <% end %>
+        </div>
+      </div>
+      <h1>
+        <%= t("general.#{controller.action_name}") %>
+        <small class="text-muted">
+          <%= t("application.#{controller.controller_name}") %>
+        </small>
+      </h1>
+    </div>
+  </div>
+  <!-- Ends Title-->
+</div>

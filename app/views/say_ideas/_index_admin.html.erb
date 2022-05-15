@@ -1,0 +1,28 @@
+<!-- Start Table -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="text-right">
+      <%= link_to "Crear palabra", new_say_idea_path, class: 'btn btn-success' %>
+    </div>
+    <br>
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @say_ideas.each do |say_idea| %>
+            <tr>
+              <td> <%= say_idea.title.upcase %> </td>
+              <td> <%= link_to "Editar", edit_say_idea_path(say_idea), class: "btn btn-warning" %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Ends Table -->

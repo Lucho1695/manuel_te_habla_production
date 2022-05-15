@@ -1,0 +1,106 @@
+<div onclick="myFunction('', '<%= question.name %>')"
+  onclick="return <%= question.name.present? ? true : false %>">
+</div>
+
+<div class="controls<%= question.id %>">
+  <button class="btn btn-success verification" type="button" onclick="mic(<%= question.id %>)" id="mic_<%= question.id %>">
+    <i class="fas fa-thumbs-up"></i> Verificar permisos
+  </button>
+
+  <button type="button" class="btn btn-info record" id="record_<%= question.id %>" hidden>
+    <i class="fas fa-microphone"></i> Grabar
+  </button>
+</div>
+
+<main>
+
+</main>
+<br>
+
+<div id="recordings_<%= question.id %>">
+  <audio id="audio_<%= question.id %>">
+    <a class="a_<%= question.id %>" href=""></a>
+  </audio>
+  <%= f.hidden_field "audio_response_#{question.id}", id: "audio_response_#{question.id}"%>
+</div>
+
+<script>
+  async function mic (value) {
+    const getMic = document.getElementById('mic_'+value);
+    const recordButton = document.getElementById('record_'+value);
+    const list = document.getElementById('recordings_'+value);
+    if ('MediaRecorder' in window) {
+      document.getElementById('mic_'+value).setAttribute('hidden', 'hidden')
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+          video: false
+        });
+        const mimeType = 'audio/webm';
+        let chunks = [];
+        const recorder = new MediaRecorder(stream, { type: mimeType });
+        recorder.addEventListener('dataavailable', event => {
+          if (typeof event.data === 'undefined') return;
+          if (event.data.size === 0) return;
+          chunks.push(event.data);
+        });
+        recorder.addEventListener('stop', () => {
+          const recording = new Blob(chunks, {
+            type: mimeType
+          });
+          renderRecording(recording, list, value);
+          chunks = [];
+        });
+        recordButton.removeAttribute('hidden');
+        recordButton.addEventListener('click', () => {
+          if (recorder.state === 'inactive') {
+            recorder.start();
+            recordButton.innerText = 'Detener';
+          } else {
+            recorder.stop();
+            recordButton.innerText = 'Grabar';
+          }
+        });
+      } catch {
+        renderError(
+        'You denied access to the microphone so this demo will not work.', value
+        );
+      }
+    } else {
+      renderError(
+      "Sorry, your browser doesn't support the MediaRecorder API, so this demo will not work.", value
+      );
+    }
+
+  }
+
+
+  function renderError(message, value) {
+    const main = document.querySelector('main');
+    main.innerHTML = `<div class="error"><p>${message}</p></div>`;
+  }
+
+  function renderRecording(blob, list, value) {
+    const blobUrl = URL.createObjectURL(blob);
+    const audio = document.getElementById('audio_'+value);
+    audio.setAttribute('src', blobUrl);
+    audio.removeAttribute('hidden')
+    audio.setAttribute('controls', 'controls');
+    var reader = new FileReader();
+    reader.readAsDataURL(blob);
+    reader.onloadend = function() {
+      var base64data = reader.result;
+      var audio_record = document.getElementById('audio_response_'+value)
+      audio_record.setAttribute('value', base64data)
+    }
+    list.append(audio);
+  }
+
+  function blobToBase64(blob) {
+    return new Promise((resolve, _) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result);
+      reader.readAsDataURL(blob);
+    });
+  }
+</script>

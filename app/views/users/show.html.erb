@@ -1,0 +1,28 @@
+<div class="container-fluid">
+  <%= render "structure/show_head" %>
+  <br/>
+</div>
+
+<!-- Start User table -->
+<div class="col-md-12">
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-condensed">
+      <tr>
+        <th>Nombre</th>
+        <td><%= @user.name.upcase %></td>
+      </tr>
+      <tr>
+        <th>Correo</th>
+        <td><%= @user.email.upcase %></td>
+      </tr>
+      
+      <tr>
+        <th>Creado</th>
+        <td><%= @user.created_at.localtime.strftime("%Y-%m-%d %H:%M") %></td>
+      </tr>
+      <!-- Ends Groups Section -->
+
+    </table>
+  </div>
+</div>
+<!-- Ends User table -->

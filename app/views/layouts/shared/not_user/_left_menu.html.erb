@@ -1,0 +1,48 @@
+<!-- Sidebar - Brand -->
+<a class="sidebar-brand d-flex align-items-center justify-content-center" onclick="myFunction('Categorías')" href="categories">
+  <div class="sidebar-brand-text mx-3">Manuel te habla</div>
+</a>
+
+<!-- Divider -->
+<hr class="sidebar-divider my-0"></hr>
+<li class="nav-item">
+  <a>
+    <%= link_to categories_path, onclick: "myFunction('Categorías')" do %>
+    <img src="../../categorias.png" id="icons"> Categorías
+    <% end %>
+  </a>
+</li>
+<li class="nav-item">
+  <a>
+    <%= link_to videos_path, onclick: "myFunction('Videos')" do %>
+    <img src="../../video.png" id="icons"> Videos
+    <% end %>
+  </a>
+</li>
+<li class="nav-item">
+  <a>
+    <%= link_to contacts_path, onclick: "myFunction('Contactos')" do %>
+    Contactos
+    <% end %>
+  </a>
+</li>
+<% if !current_user.nil? %>
+  <li class="nav-item">
+    <a>
+      <%= link_to categories_path, onclick: "myFunction('Progreso')" do %>
+      <img src="../../progreso.png" id="icons"> Progreso
+      <% end %>
+    </a>
+  </li>
+  <% end %>
+<a href="#" onclick="myFunction('Expresa tus ideas')"><i class="fas fa-user"></i>Expresa tus ideas</a>
+
+<li class="nav-item">
+  <a>
+    <%= link_to users_path, onclick: "myFunction('Usuarios')" do %>
+    <img src="../../usuarios.png" id="icons"> Usuarios
+    <% end %>
+  </a>
+</li>
+<!-- /#sidebar-wrapper -->
+<hr class="sidebar-divider my-0"></hr>

@@ -1,0 +1,46 @@
+<div class="card border-primary">
+  <div class="card-header">
+    <div class="row">
+      <%= render "structure/index_head" %>
+      <hr id="hr">
+      <hr id="hr">
+    </div>
+    <% if !current_user.nil? %>
+      <% if current_user.user_roles != "Niño" %>
+        <%= link_to 'Nuevo Cuestionario', new_questionnaire_path, class: "btn btn-info float-right text-white" %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="card-body">
+    <div class="col-md-12">
+      <!-- Start Table -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th></th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @questionnaires.each do |questionnaire| %>
+                  <tr>
+                    <td><%= questionnaire.name %></td>
+                    <td><%= link_to "Mostrar", questionnaire, class: 'btn btn-primary' %></td>
+                    <td><%= link_to "Editar", edit_questionnaire_path(questionnaire), class: 'btn btn-warning' %></td>
+                    <td><%= link_to "Eliminar", questionnaire, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- Ends Table -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Points:</strong>
+  <%= @goal.points %>
+</p>
+
+<p>
+  <strong>Person:</strong>
+  <%= @goal.person_id %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @goal.comments_id %>
+</p>
+
+<%= link_to "Editar", edit_goal_path(@goal) %> |
+<%= link_to "Regresar", goals_path %>

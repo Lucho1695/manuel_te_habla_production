@@ -1,0 +1,24 @@
+<div class="card border-dark">
+  <h5>Selecciona la imagen del rompecabezas que deseas armar:</h5> <br>
+  <div class="card-body row">
+    <% @categories.each do | category | %>
+      <% category.subcategories.each do | themes | %>
+        <div class="col-md-6">
+          <div class="card border-dark" >
+            <div class="card-header">
+              <h2 class="text-center" id="titles">
+                <b><%= themes.title.upcase %></b>
+              </h2>
+            </div>
+            <div class="card-body text-center">
+              <%= link_to puzzle_category_game_path(themes), onClick: "Category('#{themes.title}')", onClick: "myFunction('', '#{themes.title}')" do %>
+                <%= show_image_table(themes.subcategories_image)%>
+              <% end %>
+            </div>
+          </div>
+
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

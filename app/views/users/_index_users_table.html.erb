@@ -1,0 +1,30 @@
+<!-- Start Table -->
+<div class="row">
+  <div class="col-md-12">
+    <div class="table-responsive">
+      <table id="table_manuel">
+        <thead>
+          <tr>
+            <th>Correo</th>
+            <th>Nombre</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if current_user.user_roles== 0 || current_user.user_roles== 1 %>
+            <% @users.each do |user| %>
+              <tr>
+                <td> <%= user.email.upcase %> </td>
+                <td> <%= user.name.upcase %></td>
+                <td> <%= link_to "Mostrar", user, class: "btn btn-success" %> </td>
+                <td> <%= link_to "Editar", edit_user_path(user), class: "btn btn-warning" %> </td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!-- Ends Table -->

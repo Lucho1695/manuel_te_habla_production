@@ -1,0 +1,70 @@
+<div class="card border-primary">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <%= render "structure/index_head" %>
+    </div>
+    <hr id="hr">
+    <hr id="hr">
+  </div>
+  <div class="col-md-12">
+    <div class="text-right">
+      <% if !current_user.nil? %>
+        <%= link_to 'Nueva Persona', new_person_path, class: "btn btn-info text-right text-white" %>
+      <% end %>
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Foto</th>
+            <th>Estado</th>
+            <th>Rol</th>
+            <th>Correo</th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @people.each do |person| %>
+            <tr>
+              <td><%= person.name %></td>
+
+              <td>
+                <%= show_image_table(person.avatar) %>
+              </td>
+              <% if person.status %>
+              <td><%= "Activo" %></td>
+              <% else %>
+              <td><%= "Inactivo" %></td>
+              <% end %>
+              <td><%= Person.user_roles.keys[person.roles] %></td>
+              <td><%= person.email %></td>
+              <td><%= link_to 'Mostrar', person, class: 'text-white btn btn-success' %></td>
+              <td><%= link_to 'Editar', edit_person_path(person), class: 'text-white btn btn-warning' %></td>
+              <td><%= link_to 'Eliminar', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-white btn btn-danger' %></td>
+            </tr>
+          <% end %>
+          <% @childrens.each do |person| %>
+            <tr>
+              <td><%= person.name %></td>
+              <td><img class="img-profile rounded-circle" style='width: 250px; height:250px;' src="<%= person.avatar %>"></td>
+              <% if person.status %>
+              <td><%= "Activo" %></td>
+              <% else %>
+              <td><%= "Inactivo" %></td>
+              <% end %>
+              <td><%= Person.user_roles.keys[person.roles] %></td>
+              <td><%= person.email %></td>
+              <td><%= link_to 'Mostrar', person, class: 'text-white btn btn-success' %></td>
+              <td><%= link_to 'Editar', edit_person_path(person), class: 'text-white btn btn-warning' %></td>
+              <td><%= link_to 'Eliminar', person, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-white btn btn-danger' %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

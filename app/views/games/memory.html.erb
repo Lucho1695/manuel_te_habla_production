@@ -1,0 +1,261 @@
+<% if @ids.count >= 6 %>
+<center>
+  <div class="card border-info">
+    <div class="card-header">
+      <h1>Juego de Memoria</h1>
+      <%= link_to games_path(),
+      :class => "btn btn-info text-white" do %>
+      <i class="fas fa-save"></i>  Regresar
+      <% end %>
+    </div>
+    <div class="card-body" id="start">
+      <h1>Debes encontrar parejas de elementos iguales o relacionados entre ellos</h1>
+      <h3 class="col-md-12 text-center" id="time">
+        <b id="hour">00:</b>
+        <b id="min">00:</b>
+        <b id="sec">00:</b>
+        <b id="milisec">00</b>
+      </h3>
+      <div class="container-fluid" id="container"></div>
+    </div>
+  </div>
+</center>
+<style media="screen">
+  ul { padding: 0;  margin: 0;}
+  li {
+    padding: 0;
+    float: left;
+    margin: 10px;
+    list-style: none;
+    outline: solid;
+    width: 15%;
+    height: 15%;
+  }
+
+  #img0, #img1, #img2, #img3, #img4, #img5, #img6, #img7, #img8, #img9, #img10, #img11 {
+    width: 200px;
+    height: 200px;
+  }
+</style>
+
+<script type="text/javascript">
+  if (document.getElementsByClassName("success").length != 12) {
+    var images = [];
+    const ids = <%= @ids %>;
+    const names = <%= raw @names %>;
+
+    for (var i = 0; i < 6; i++) {
+      var img = '../../uploads/prueba/subcategory' + ids[i] + '/' + ids[i];
+      var name = String(names[i])
+      var values = {image: img, name: name}
+      images.push(values);
+      images.push(values);
+    }
+    randomizeImages();
+
+    var output = "<ol>";
+      for (var i = 0; i < 12; i++) {
+        var name = '"' + images[i]['name'] + '"'
+        output += "<li onclick='Show("+ i + "," + name + ")'>";
+        output += "<img id='img"+ i +"' src = '" + images[i]['image'] + "'/>";
+        output += "</li>";
+      }
+      output += "</ol>";
+      document.getElementById("container").innerHTML = output;
+      for (var i = 0; i < 12; i++) {
+        document.getElementById("img"+i).style.visibility = "hidden";
+      }
+      var destroy1 = "";
+      var guess1 = "";
+      var guess1id = ""
+      var destroy2 = "";
+      var guess2 = "";
+      var guess2id = ""
+      var count = 0;
+
+      $("li").click(function() {
+        if ((count < 2) &&  ($(this).children("img").hasClass("face-up")) === false) {
+          // increment guess count, show image, mark it as face up
+          count++;
+          //guess #1
+          if (count === 1 ) {
+            destroy1 = $(this)
+            guess1 = $(this).children("img").attr("src");
+            guess1id = $(this).children("img").attr("id")
+          }
+          //guess #2
+          else {
+            destroy2 = $(this)
+            guess2 = $(this).children("img").attr("src");
+            guess2id = $(this).children("img").attr("id");
+            // since it's the 2nd guess check for match
+            if (guess1 === guess2 && guess1id != guess2id) {
+              destroy1.removeAttr('onclick');
+              destroy2.removeAttr('onclick');
+              document.getElementById(guess1id).style.pointerEvents = 'none';
+              document.getElementById(guess1id).setAttribute('class', 'success')
+              document.getElementById(guess2id).style.pointerEvents = 'none';
+              document.getElementById(guess2id).setAttribute('class', 'success')
+              if (document.getElementsByClassName("success").length == 12 && document.getElementById('saved') == null) {
+                stop();
+                var data = document.getElementById('time').textContent;
+                document.getElementById('time').setAttribute('id', 'saved')
+                $.ajax({
+                  url : "/games/memory_log/memory_log",
+                  data: {text: data, status: 'completado'},
+                  type:'GET',
+                  dataType: 'json',
+                  success: function(response) {
+                  }
+                });
+                var msg = new SpeechSynthesisUtterance();
+                var msga = "Felicidades, completaste el juego de memoria";
+                // msg.volume = 1; // 0 to 1
+                msg.rate = 1; // 0.1 to 10
+                msg.pitch = 1.11; //0 to 2
+                msg.text = msga
+                msg.lang = 'es-ES';
+                speechSynthesis.speak(msg);
+
+        			  alert("Completaste el juego de memoria")
+              }
+            }
+
+            // else it's a miss
+            else {
+              setTimeout(function() {
+                if (destroy1[0].onclick != null) {
+                  document.getElementById(guess1id).style.visibility = "hidden"
+                }
+                if (destroy2[0].onclick != null) {
+                  document.getElementById(guess2id).style.visibility = "hidden"
+                }
+              }, 500);
+            }
+            // reset
+            count = 0;
+            setTimeout(function() { console.clear(); }, 60000);
+          }
+        }
+      });
+
+      function Show(val, value){
+        var msg = new SpeechSynthesisUtterance();
+        var msga = value;
+        // msg.volume = 1; // 0 to 1
+        msg.rate = 1; // 0.1 to 10
+        msg.pitch = 1.11; //0 to 2
+        msg.text = msga
+        msg.lang = 'es-ES';
+        speechSynthesis.speak(msg);
+        setTimeout(function() {
+          document.getElementById("img"+val).style.visibility = "visible"
+        }, 200);
+      }
+
+      // randomize array of images
+      function randomizeImages(){
+        Array.prototype.randomize = function()
+        {
+          var i = this.length, j, temp;
+          while ( --i )
+          {
+            j = Math.floor( Math.random() * (i - 1) );
+            temp = this[i];
+            this[i] = this[j];
+            this[j] = temp;
+          }
+        };
+        images.randomize();
+      }
+
+      // CHRONOMETHER
+      var x;
+
+      $("#start").one("click", function () {
+        x = setInterval(timer, 10);
+      });
+
+      function stop() {
+        clearInterval(x);
+      } /* Stop */
+
+      var milisec = 0;
+      var sec = 0; /* holds incrementing value */
+      var min = 0;
+      var hour = 0;
+
+      /* Contains and outputs returned value of  function checkTime */
+
+      var miliSecOut = 0;
+      var secOut = 0;
+      var minOut = 0;
+      var hourOut = 0;
+
+      /* Output variable End */
+
+
+      function timer() {
+        /* Main Timer */
+        miliSecOut = checkTime(milisec);
+        secOut = checkTime(sec);
+        minOut = checkTime(min);
+        hourOut = checkTime(hour);
+
+        milisec = ++milisec;
+
+        if (milisec === 100) {
+          milisec = 0;
+          sec = ++sec;
+        }
+
+        if (sec == 60) {
+          min = ++min;
+          sec = 0;
+        }
+
+        if (min == 60) {
+          min = 0;
+          hour = ++hour;
+        }
+
+
+        document.getElementById("milisec").innerHTML = miliSecOut;
+        document.getElementById("sec").innerHTML = secOut+':';
+        document.getElementById("min").innerHTML = minOut+':';
+        document.getElementById("hour").innerHTML = hourOut+':';
+
+      }
+
+
+      /* Adds 0 when value is <10 */
+
+
+      function checkTime(i) {
+        if (i < 10) {
+          i = "0" + i;
+        }
+        return i;
+      }
+
+      function reset() {
+        /*Reset*/
+
+        milisec = 0;
+        sec = 0;
+        min = 0
+        hour = 0;
+
+        document.getElementById("milisec").innerHTML = "00:";
+        document.getElementById("sec").innerHTML = "00:";
+        document.getElementById("min").innerHTML = "00:";
+        document.getElementById("hour").innerHTML = "00";
+
+      }
+    }
+  </script>
+<% else %>
+  <div class="card bg-warning">
+    <h1 class="text-center">DEBE TENER POR LO MENOS 6 IMAGENES EN SUBCATEGORIAS</h1>
+  </div>
+<% end %>

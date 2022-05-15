@@ -1,0 +1,47 @@
+<div class="card border-info">
+  <div class="card-header" id='card-header'>
+    <div class="row">
+      <div class="col-md-12">
+        <%= link_to "Editar", edit_person_path(@person), class: 'text-white btn btn-warning float-right' %>
+        <%= link_to "Regresar", people_path, class: 'text-white btn btn-success float-right' %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <table class="table table-hover table-bordered">
+      <thead>
+        <th colspan="2">
+        </th>
+
+      </thead>
+      <tbody>
+        <td>
+          <h1><b>Foto de perfil</b></h1>
+        </td>
+        <td>
+          <a onclick="return <%= @person.avatar.present? ? true : false %>"><%= show_image_table(@person.avatar) %></a>
+        </td>
+      </tbody>
+      <thead>
+        <th>Nombre</th>
+        <th>Correo</th>
+      </thead>
+      <tbody>
+        <td><%= @person.name %></td>
+        <td><%= @person.email %></td>
+      </tbody>
+      <thead>
+        <th>Estado</th>
+        <th>Comentarios</th>
+      </thead>
+      <tbody>
+        <% if @person.status %>
+          <td><%= "Activo" %></td>
+        <% else %>
+          <td><%= "Inactivo" %></td>
+        <% end %>
+        <%= @person.comments %>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,165 @@
+<div class="card border-info">
+  <div class="card-header" id='card-header'>
+    <div class="row">
+      <div class="col-md-10">
+        <h1><b class="text">Calificar Respuesta</b></h1>
+      </div>
+      <div class="col-md-2">
+        <%= link_to 'Regresar', responses_path, class: "btn btn-warning float-right" %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <% if @response.response_type == 2 %>
+    <div class="card-body">
+      <table class="table table-bordered" cellspacing="0">
+        <thead>
+          <tr>
+            <th>Pregunta</th>
+            <th>Respuesta</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @response.question.name %></td>
+            <td>
+              <% if @response.audio_response != "" %>
+              <audio controls="controls" autobuffer="autobuffer">
+                <source src="<%= @response.audio_response%> ">
+                </audio>
+                <% else %>
+                No se respondio este audio
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="col-md-4">
+          <div class="card border-dark">
+            <div class="card-header">
+              <h5>Rubrica de calificación a nivel oral</h5>
+            </div>
+            <div class="card-body">
+              <table class="table table-bordered" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th class="text-center" colspan="2">Rango</th>
+                    <th>Descripcion del rango</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>0</td>
+                    <td>0.9</td>
+                    <td>Sonido nulo</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>1.9</td>
+                    <td>Un sonido vocalico</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>2.9</td>
+                    <td>Dos sonidos vocalicos</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>3.9</td>
+                    <td>Silabas</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>4.9</td>
+                    <td>Palabra</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>6</td>
+                    <td>Frases</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% elsif @response.response_type == 1 %>
+        <div class="card-body">
+          <table class="table table-bordered" cellspacing="0">
+            <thead>
+              <tr>
+                <th>Pregunta</th>
+                <th>Respuesta</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><%= @response.question.name %></td>
+                <td>
+                  <%= @response.answer.name %>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="col-md-4">
+            <div class="card border-dark">
+              <div class="card-header">
+                <h5>Rubrica de calificación a nivel cognitivo</h5>
+              </div>
+              <div class="card-body">
+                <table class="table table-bordered" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th class="text-center" colspan="2">Rango</th>
+                      <th>Descripcion del rango</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>0</td>
+                      <td>3</td>
+                      <td>No lo logra</td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>4.9</td>
+                      <td>Con apoyo</td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>6</td>
+                      <td>Lo logra</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <%= form_with(model: @response, local: true) do |form| %>
+      <% if @response.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@response.errors.count, "error") %> no pudo ser guardado:</h2>
+          <ul>
+            <% @response.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="card-body">
+        <div class="col-md-12 row">
+          <%= form.label "Puntos:", class: 'col-md-3 text-right'%>
+          <%= form.number_field :points, class: "form-control col-md-9" %>
+        </div>
+        <br><br>
+        <div class="text-center">
+          <%= form.submit "Guardar", class: 'btn btn-success'%>
+        </div>
+      </div>
+    <% end %>
+  </div>

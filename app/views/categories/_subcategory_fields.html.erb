@@ -1,0 +1,31 @@
+<div class="col-md-4">
+  <div class="nested-fields">
+    <div class="card border-primary">
+      <div class="card-body">
+        <div class="col-md-12 row text-center">
+          <%= f.label "Nombre de imagen:", class: "col-md-6" %>
+          <%= f.text_field :title, class: "form-control col-md-6" %>
+          <!-- <#%= f.label "Articulo", class: "col-md-3" %>
+          <#%= f.collection_select :article_id, Article.all, :id, :name, { include_blank: false },
+          class: "form-control dropdown-toggle col-md-9" %> -->
+          <br><br>
+          <%= f.label 'Imagen representativa:', 'Imagen representativa:', class: "col-md-6" %>
+          <%= f.file_field :subcategories_image, class: "col-md-6" %>
+          <br><br>
+        </div>
+        <br>
+        <div class="col-md-12 text-center">
+          <% if f.object.subcategories_image.present? %>
+            <a href="<%= f.object.subcategories_image %>" target="_blank" onclick="return <%= f.object.subcategories_image.present? ? true : false %>">
+              <%= show_image_table(f.object.subcategories_image) %>
+            </a>
+          <% end %>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <%= link_to_remove_association '<span class="glyphicon glyphicon-minus white"></span> Eliminar '.html_safe, f, class: 'btn btn-danger text-center' %>
+      </div>
+    </div>
+  </div>
+  <br>
+</div>

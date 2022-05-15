@@ -1,0 +1,25 @@
+<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Imagen</th>
+      <th>Nombre</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @categories.each do |category| %>
+      <tr>
+        <td>
+          <a onclick="myFunction('', '<%= category.name %>')"
+           onclick="return <%= category.category_image.present? ? true : false %>">
+             <%= show_image_table(category.category_image) %>
+           </a>
+        </td>
+        <td><%= category.name %></td>
+        <td><%= link_to "Mostrar", category_path(category), class: 'btn btn-success' %></td>
+        <td><%= link_to "Editar", edit_category_path(category), class: 'btn btn-warning' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

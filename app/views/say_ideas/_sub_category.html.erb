@@ -1,0 +1,39 @@
+<div class="col-md-12">
+
+  <div class="card-body">
+    <div class="container-fluid">
+      <div class="card-deck">
+        <div class="col-md-12 row" id="results">
+          <% @say_ideas.each do | say_idea | %>
+            <% if say_idea.say_idea_type == 2 %>
+              <div class="col-md-4">
+                <div class="card border-dark">
+                  <div class="card-header">
+                    <h1 class="text-center">
+                      <%= say_idea.title %>
+                    </h1>
+                  </div>
+                  <div class="card-body">
+                    <%= show_image_say_idea(say_idea) %>
+                    <% if current_user.user_roles == "SuperAdmin"%>
+                      <%= link_to "Editar", edit_say_idea_path(say_idea)%>
+
+                    <%end%>
+
+                  </div>
+                </div>
+              </div>
+              <script>
+                $("#<%= say_idea.title.gsub(' ', '') %>").on("click", function(){
+                  var targ = event.target || event.srcElement;
+                  document.getElementById("alltext").value += targ.getAttribute("value")
+                  $("#results").html("<%= j render(partial: 'say_ideas/content') %>")
+                })
+              </script>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

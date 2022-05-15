@@ -1,0 +1,137 @@
+<div class="card border-primary">
+  <% if !current_user.nil? %>
+    <% if current_user.user_roles == "SuperAdmin" %>
+      <%= render "show_head" %>
+    <% else %>
+      <%= render "show_head" %>
+    <% end %>
+  <% else %>
+    <%= render "show_head" %>
+  <% end %>
+
+  <% if @responses.empty? %>
+    <div class="card border-info">
+      <h1>No se ha contestado nada para este Cuestionario</h1>
+    </div>
+  <% end %>
+  <br>
+  <% if current_user.user_roles != "Niño" %>
+    <form>
+      <input type="hidden" name="filter" id="filter" value="<%= params[:filter] %>">
+      <div class="col-md-12 row">
+        <div class="col-md-12 row">
+          <label class="col-md-2 text-right">Nombre: </label>
+          <% if current_user.user_roles == "SuperAdmin" %>
+          <%= collection_select(:get, :person_id, Person.where(roles: 2), :id, :name, {selected: @users}, class:'select2 col-md-10', multiple: true, data: { placeholder: "Seleccione el nombre del niño a consultar"})%>
+          <% elsif current_user.user_roles == "Adulto Responsable" %>
+          <%= collection_select(:get, :person_id, Person.where(user_id: current_user.id), :id, :name, { selected: @users}, class:'select2 col-md-10', multiple: true, data: { placeholder: "Seleccione el nombre del niño a consultar"})%>
+          <% end %>
+        </div>
+        <br><br>
+        <div class="col-md-12 row">
+          <label class="col-md-2 text-right">Preguntas: </label>
+          <%= collection_select(:get, :question_id, @questions.order(:name), :id, :name, { selected: @question}, class:'select2 col-md-10', multiple: true, data: { placeholder: "Seleccione la pregunta a consultar"})%>
+        </div>
+        <br><br>
+        <div class="text-right col-md-12">
+          <button type="submit" name="sub" class="col-md-2 btn btn-success"><b>Buscar</b></button>
+        </div>
+      </div>
+    </form>
+  <% end %>
+  <br>
+  <div class="card-deck">
+    <div class="col-md-12 row">
+      <% @responses.each do | response |%>
+      <div class="col-md-6">
+        <br>
+        <div class="card border-info">
+          <div class="card-header">
+            <h4><b>Cuestionario: <%= response.questionnaire.name %> </b></h4>
+          </div>
+          <% if response.response_type == 2 %>
+          <div class="card-body">
+            <table class="table table-bordered" cellspacing="0">
+              <thead>
+                <tr>
+                  <th>Pregunta</th>
+                  <th>Respuesta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><%= response.question.name %></td>
+                  <td>
+                    <% if response.audio_response != "" %>
+                    <audio controls="controls" autobuffer="autobuffer">
+                      <source src="<%= response.audio_response%> ">
+                      </audio>
+                      <% else %>
+                        No se respondio este audio
+                      <% end %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Fecha de creación</th>
+                    <td><%= response.created_at.strftime("%d/%m/%Y") %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              <h4>Esta pregunta la contestó: <b><%= response.user.name %></b></h4>
+              <h4>
+                Puntos obtenidos: <%= response.points %>
+                <% if current_user.user_roles != "Niño" %>
+                  <%= link_to "Calificar", edit_response_path(response.id), class: 'btn btn-warning' %>
+                <% end %>
+              </h4>
+            </div>
+            <% elsif response.response_type == 1 %>
+            <div class="card-body">
+              <table class="table table-bordered" cellspacing="0">
+                <thead>
+                  <tr>
+                    <th>Pregunta</th>
+                    <th>Respuesta</th>
+                  </tr>
+
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><%= response.question.name %></td>
+                    <td>
+                      <%= response.answer.name %>
+                    </td>
+                  </tr>
+                  <tr>
+                    <th>Fecha de creación</th>
+                    <td><%= response.created_at.strftime("%d/%m/%Y") %></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="card-footer">
+              Esta pregunta la contestó <%= response.user.name %>
+              <h4>
+                Puntos obtenidos: <%= response.points %>
+                <% if current_user.user_roles == "SuperAdmin" || current_user.user_roles == "Adulto Responsable" %>
+                  <%= link_to "Calificar", edit_response_path(response.id), class: 'btn btn-warning' %>
+                <% end %>
+              </h4>
+            </div>
+            <% end %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    $(".select2").select2({
+      search: true,
+      multiple: true
+    });
+
+  </script>

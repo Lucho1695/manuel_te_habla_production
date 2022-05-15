@@ -1,0 +1,50 @@
+i<div class="card border-info">
+  <div class="card-header" id="card-header">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render "structure/index_head" %>
+      </div>
+      <hr id="hr">
+      <hr id="hr">
+    </div>
+  </div>
+
+  <div class="card-body">
+    <h2>Selecciona el juego con el que deseas interactuar:</h2> <br>
+    <div class="row col-md-12">
+      <div class="col-md-6 text-center">
+       <%= button_to puzzle_game_path("puzzle"), method: :get,
+       :class => "btn" do %>
+         <div class="card">
+           <div class="card-header" style="background-color: #F7C26D; color: #000000;">
+             <h3>
+               <i class="fas fa-puzzle-piece"></i> Rompecabezas
+             </h3>
+           </div>
+           <div class="card-body">
+             <%= image_tag("rompecabezas.jpeg",  style: "height:100%; width: 100%;") %>
+           </div>
+           <div class="card-footer">
+             aca va una descripción
+           </div>
+         </div>
+       <% end %>
+     </div>
+      <div class="col-md-6">
+        <%= button_to memory_game_path("memory"), method: :get,
+        :class => "btn text-black" do %>
+        <div class="card border-info">
+          <div class="card-header" style="background-color: #F7C26D; color: #000000;">
+            <h3>
+              <i class="fas fa-puzzle-piece"></i> Memoria
+            </h3>
+          </div>
+          <div class="card-body">
+            <%= image_tag("memoria.jpeg",  style: "height:100%; width: 100%;") %>
+          </div>
+        </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

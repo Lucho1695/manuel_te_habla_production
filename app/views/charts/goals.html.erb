@@ -1,0 +1,19 @@
+ <div class="card border-info">
+  <div class="card-header text-center">
+    <h1><b>Registro de calificación de cuestionarios</b></h1>
+  </div>
+  <div class="card-body">
+    <h2>Por favor, seleccione la opción de cuestionario que desea visualizar a detalle:</h2>
+    <br><br>
+    <div class="text-center">
+      <%if !@cuestionarios.nil? %>
+        <% @cuestionarios.each do | questionario |%>
+          <%= button_to show_goals_charts_path(questionario), class: "btn btn-primary col-md-4", method: :get do %>
+            <b>Ver gráfica para el cuestionario <%= questionario.name %></b>
+          <% end %>
+        <br>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

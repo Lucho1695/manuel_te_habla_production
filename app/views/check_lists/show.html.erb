@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @check_list.completed %>
+</p>
+
+<p>
+  <strong>Goal:</strong>
+  <%= @check_list.goal_id %>
+</p>
+
+<%= link_to "Editar", edit_check_list_path(@check_list) %> |
+<%= link_to "Regresar", check_lists_path %>

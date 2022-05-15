@@ -1,0 +1,36 @@
+<div class="card-header" id="card-header">
+  <div class="row">
+    <br>
+    <div class="col-md-12">
+      <div class="text-center">
+        <br>
+        <h1><b class="titulos_admin">
+          <%= @responses.first&.questionnaire&.name %>
+        </b></h1>
+      </div>
+      <div class="col-md-12 text-right">
+        <% if current_user.user_roles != "Niño" %>
+          <%= link_to responses_path, class: 'btn btn-info text-white', id: 'index_button' do%>
+            <i class="fas fa-list-ul text-white"></i> Regresar
+            <%= t("application.questionnaires") %>
+          <% end %>
+        <% else %>
+          <%= link_to questionnaires_path, class: 'btn btn-info text-white', id: 'index_button' do%>
+            <i class="fas fa-list-ul text-white"></i> Regresar
+            <%= t("application.questionnaires") %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+<style>
+  b.test {
+    font-size: 35px;
+    text-transform: uppercase;
+    text-align: center;
+    background: linear-gradient(to right, #DE8006 0%, #EBE000 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+</style>

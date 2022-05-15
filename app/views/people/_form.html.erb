@@ -1,0 +1,80 @@
+<%= form_with(model: person, local: true) do |form| %>
+  <div class="col-md-12">
+    <!--Strarts Section Errors-->
+    <% if person.errors.any? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong><%= pluralize(person.errors.count, "error") %></strong> La persona no se puede guardar:
+      <ul>
+        <% person.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+    <!--Ends Section Errors-->
+  </div>
+
+  <div class="col-md-12" id="moodle_persons_form">
+    <div class="form-group row ">
+      <%= form.label 'Correo', 'Correo', class: "col-md-2 control-label" %>
+      <div class="col-md-4">
+        <%= form.text_field :email, class: "form-control", id: 'person_email' %>
+      </div>
+      <!-- Ends email -->
+
+      <%= form.label 'Nombre', 'Nombre', class: "col-md-2 control-label" %>
+      <div class="col-md-4">
+        <%= form.text_field :name, class: "form-control", id: 'person_name' %>
+      </div>
+      <!-- Ends name -->
+    </div>
+
+    <div class="form-group row">
+      <%= form.label 'Contraseña', 'Contraseña', class: "col-md-2 control-label" %>
+      <div class="col-md-4">
+        <%= form.password_field :password, class: "form-control", id: 'person_password', value: person.password %>
+      </div>
+      <!-- Ends password -->
+      <% if current_user.user_roles== "SuperAdmin" %>
+        <%= form.label "Rol de usuario", class: 'col-md-2 control-label'%>
+        <div class="col-md-4">
+          <%= form.select(:roles, options_for_select(User.user_roles, person.roles), {}, {class: "form-control"}) %>
+        </div>
+      <% else %>
+        <% form.hidden_field :roles, value: 2 %>
+      <% end %>
+    </div>
+
+    <div class="form-group row">
+      <%= form.label 'Foto', 'Foto', class: "col-md-2 control-label" %>
+      <div class="col-md-4">
+        <a href="<%= person.avatar %>" target="_blank" onclick="return <%= person.avatar.present? ? true : false %>"><%= show_image(person.avatar) %></a>
+        <%= form.file_field :avatar %>
+      </div>
+    </div>
+
+    <div class="form-group row">
+    </div>
+    <div class="form-group row float-right">
+      <div class="actions col-md-12">
+        <%= form.submit "Guardar", class: 'btn btn-success', id: 'person_save' %>
+      </div>
+    </div>
+  </div>
+
+<% end %>
+
+<script>
+  $('.select2').select2({
+    language: "es",
+    multiple: true,
+    placeholder: "Seleccione",
+    formatNoMatches: function() {
+      return '';
+    },
+  });
+
+</script>

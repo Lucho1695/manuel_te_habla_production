@@ -1,0 +1,35 @@
+<div class="col-md-12">
+
+  <div class="card-body">
+    <div class="container-fluid">
+      <div class="card-deck">
+        <div class="col-md-12 row" id="results">
+          <% @say_ideas.each do | say_idea | %>
+            <% if say_idea.say_idea_type == 3 %>
+              <div class="col-md-4">
+                <div class="card border-dark">
+                  <div class="card-headr">
+                    <h1 class="text-center">
+                      <%= say_idea.title %>
+                    </h1>
+                  </div>
+                  <div class="card-body">
+                    <%= show_image_say_idea(say_idea) %>
+                    
+                  </div>
+                </div>
+              </div>
+              <script>
+                $("#<%= say_idea.title.gsub(' ', '') %>").on("click", function(){
+                  var targ = event.target || event.srcElement;
+                  document.getElementById("alltext").value += targ.getAttribute("value") + " "
+                })
+
+              </script>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

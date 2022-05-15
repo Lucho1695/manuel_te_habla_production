@@ -1,0 +1,49 @@
+<div class="row">
+  <% @videos.each do |video| %>
+    <div class="col-md-12">
+      <div class="card border-dark">
+        <div class="card-header text-center" style="font-size: 25px">
+          <b>
+            <%= video.title %>
+          </b>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <% if !video.url.nil? %>
+              <iframe width="100%" height="515px" src="<%= video.url %>"></iframe>
+            <% elsif !video.upload_files.empty? %>
+              <video
+              id="my-video"
+              class="video-js"
+              controls
+              preload="auto"
+              width="100%" height="515px"
+              data-setup="{}"
+              >
+                <source
+                type="<%= video.upload_files.first.content_type %>"
+                src="data:<%= video.upload_files.first.content_type %>;base64,<%= Base64.encode64(video.upload_files.first.blob.data) %>"/>
+              </video>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <% if !current_user.nil? %>
+
+          <% end %>
+          <h2>Descripción:</h2>
+          <b><%= video.description.first(120) %></b>
+          <% if current_user.user_roles != "Niño" %>
+          <br>
+          <br>
+            <%= link_to 'Editar', edit_video_path(video), class: "btn btn-warning" %>
+            <%= link_to 'Eliminar', video, method: :delete, data: { confirm: 'Esta seguro de que quiere eliminar este video?' }, class: "btn btn-danger text-white" %>
+            <br>
+            <br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,103 @@
+<div class="card-body">
+  <% video = @video %>
+  <%= form_with(model: video, local: true) do |form| %>
+    <% if video.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(video.errors.count, "error") %> prohibited this video from being saved:</h2>
+        <ul>
+          <% video.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="col-md-12 row">
+        <%= form.label "Titulo del video", class: "col-md-3 form-label text-right" %>
+        <%= form.text_field :title, class: "form-control col-md-9" %>
+      </div>
+      <br>
+      <div class="col-md-12 row">
+        <%= form.label "Descripción", class: "col-md-3 form-label text-right" %>
+        <%= form.text_area :description, class: "form-control col-md-9" %>
+      </div>
+      <br>
+
+      <div class="col-md-12 row">
+        <% if !@video.id.nil? %>
+          <% if !@video.url.nil?%>
+            <%= form.label "Video", class: "col-md-3 form-label text-right" %>
+            <div id="add_url" class="btn btn-outline-info" onclick="addOptionToUrl()">Agregar video de Url</div>
+            <div id="option" class="col-md-9">
+            </div>
+            <iframe width="100%" height="400px" src="<%= @video.url %>">
+            </iframe>
+          <% elsif !@video.upload_files.empty? %>
+            <%= form.label "Video", class: "col-md-3 form-label text-right" %>
+            <div id="add_video" class="btn btn-outline-info" onclick="addOptionToClip()">Agregar Video</div>
+            <div id="option" class="col-md-9">
+              <div class="col-md-12 row">
+                <div class="col-md-12">
+                  <div class="card-deck row bg-outline-info">
+                    <div class="col-md-12 row" id="upload_body" hidden>
+                      <%= form.fields_for :upload_files do | video | %>
+                      <%= render 'upload_fields', {form: video, f: video} %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <video id="my-video" class="video-js" controls preload="auto" width="100%" height="400px" data-setup="{}" >
+              <source
+              type="<%= @video.upload_files.first.content_type %>"
+              src="data:<%= @video.upload_files.first.content_type %>;base64,<%= Base64.encode64(@video.upload_files.first.blob.data) %>"/>
+            </video>
+          <% end %>
+        <% else %>
+          <%= form.label "Video", class: "col-md-3 form-label text-right" %>
+          <div id="add_video" class="btn btn-outline-info" onclick="addOptionToClip()">Add Video</div>
+          <div id="add_url" class="btn btn-outline-info" onclick="addOptionToUrl()">Add Url</div>
+
+          <div id="option" class="col-md-9">
+            <div class="col-md-12 row">
+              <div class="col-md-12">
+                <div class="card-deck row bg-outline-info">
+                  <div class="col-md-12 row" id="upload_body" hidden>
+                    <%= form.fields_for :upload_files do | video | %>
+                      <%= render 'upload_fields', {form: video, f: video} %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Crear Video", class: "btn btn-success float-right" %>
+    </div>
+
+    <script>
+      function addOptionToClip() {
+        document.getElementById("upload_body").hidden = false
+        document.getElementById("add_video").hidden = true
+        if (document.getElementById("add_url") != null) {
+          document.getElementById("add_url").hidden = true
+        }
+      }
+
+      function addOptionToUrl() {
+        document.getElementById("option").innerHTML =
+        '<%= form.text_field :url, class: "form-control" %>'
+        if (document.getElementById("add_video") != null) {
+          document.getElementById("add_video").hidden = true
+        }
+        document.getElementById("add_url").hidden = true
+      }
+    </script>
+  <% end %>
+</div>

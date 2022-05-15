@@ -1,0 +1,108 @@
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style='background: #002657'>
+  <!-- Sidebar - Brand -->
+  <div class="sidebar-brand d-flex align-items-center justify-content-center">
+    <div class="sidebar-brand-text mx-3">Manuel te habla</div>
+  </div>
+
+  <div class="sidebar-brand-icon rotate-n-15">
+    <%= image_tag('logo.png', id: "image_logo_admin") %>
+  </div>
+
+  <!-- Heading -->
+  <div class="sidebar-heading">
+    Funcionalidades de la app
+  </div>
+
+  <!-- Nav Item - Pages Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+      <i class="fas fa-cog"></i>
+      <span>Pincipales</span>
+    </a>
+    <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Custom Components:</h6>
+        <!-- <#%= link_to levels_path, class:"collapse-item" do %>
+          <i class="fas fa-sort-numeric-up-alt"></i>
+          Niveles
+        <#% end %> -->
+        <%= link_to categories_path, class:"collapse-item" do %>
+        <i class="fa-solid fa-user"></i>
+          Categorias
+        <% end %>
+        <%= link_to questionnaires_path, class:"collapse-item" do %>
+          <i class="fas fa-question"></i>
+          Cuestionario
+        <% end %>
+        <%= link_to say_ideas_path, class:"collapse-item" do %>
+          <i class="fas fa-quote-left"></i>
+          Expresar ideas
+        <% end %>
+        <%= link_to responses_path, class:"collapse-item" do %>
+        <i class="fas fa-check"></i>
+          Respuestas de <br>
+          cuestionarios
+        <% end %>
+        <%= link_to videos_path, class:"collapse-item" do %>
+          <i class="fas fa-video"></i>
+          Videos
+        <% end %>
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+
+  <!-- Nav Item - Dashboard -->
+  <div class="sidebar-heading">
+    Información de usuario
+  </div>
+
+  <li class="nav-item active">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+      <i class="fas fa-fw fa-user-alt"></i>
+      <span>Usuarios y personas</span>
+    </a>
+    <div id="collapseOne" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <%= link_to people_path, class:"collapse-item" do %>
+          <i class="fas fa-fw fa-users"></i>
+          Personas
+        <% end %>
+      </div>
+    </div>
+  </li>
+  <!-- Nav Item - Utilities Collapse Menu -->
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
+      <i class="fas fa-fw fa-wrench"></i>
+      <span>Graficas</span>
+    </a>
+    <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">Custom Utilities:</h6>
+        <% if current_user.user_roles == "SuperAdmin" %>
+          <%= link_to childs_charts_path, class:"collapse-item" do %>
+          Grafica de usuarios activos
+          <% end %>
+          <%= link_to categories_charts_path, class:"collapse-item" do %>
+          Categorias activas
+          <% end %>
+        <% end %>
+
+        <%= link_to goals_charts_path, class:"collapse-item" do %>
+        Registro de notas
+        <% end %>
+        <%= link_to timelines_charts_path, class:"collapse-item" do %>
+        Historico de usuarios
+        <% end %>
+      </div>
+    </div>
+  </li>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider">
+
+
+</ul>

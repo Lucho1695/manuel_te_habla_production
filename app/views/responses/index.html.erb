@@ -1,0 +1,33 @@
+<div class="card border-primary">
+  <div class="card-header">
+    <div class="row">
+      <div class="col-md-12">
+        <%= render "structure/index_head" %>
+        <hr id="hr">
+        <hr id="hr">
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+      <thead>
+        <tr>
+          <th>Cuestionario</th>
+          <th colspan="1"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @responses.each do |response| %>
+        <tr>
+          <td><%= response.name %></td>
+          <td><%= link_to 'Mostrar', show_responses_path(response.id), class: 'btn btn-primary' %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<br>

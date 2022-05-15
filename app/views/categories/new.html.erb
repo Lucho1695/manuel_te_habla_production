@@ -1,0 +1,16 @@
+<div class="card border-primary">
+  <div class="card-header text-center">
+    <h1><b class="titulos_admin">NUEVA CATEGORÍA</b></h1>
+    <div class="row">
+      <div class="col-md-10">
+      </div>
+      <div class="col-md-2">
+        <%= link_to 'Regresar', categories_path, class: "btn btn-warning float-right" %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <h4><b>Para crear una categoría complete los siguientes campos:</b></h4>
+    <%= render 'form', category: @category %>
+  </div>
+</div>
