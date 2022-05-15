@@ -1,4 +1,4 @@
-class CreateLevels < ActiveRecord::Migration[6.0]
+class CreateLevels < ActiveRecord::Migration[5.2]
   def change
 
   end

@@ -1,4 +1,4 @@
-class CreateCheckLists < ActiveRecord::Migration[6.0]
+class CreateCheckLists < ActiveRecord::Migration[5.2]
   def change
 
   end

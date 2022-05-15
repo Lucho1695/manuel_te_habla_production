@@ -1,4 +1,4 @@
-class CreateLevelAssignments < ActiveRecord::Migration[6.0]
+class CreateLevelAssignments < ActiveRecord::Migration[5.2]
   def change
 
   end

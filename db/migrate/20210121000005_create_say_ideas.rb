@@ -1,4 +1,4 @@
-class CreateSayIdeas < ActiveRecord::Migration[6.0]
+class CreateSayIdeas < ActiveRecord::Migration[5.2]
   def change
     create_table :say_ideas do |t|
       t.string :title

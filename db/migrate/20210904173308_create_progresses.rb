@@ -1,4 +1,4 @@
-class CreateProgresses < ActiveRecord::Migration[6.0]
+class CreateProgresses < ActiveRecord::Migration[5.2]
   def change
 
   end

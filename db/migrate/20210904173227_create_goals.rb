@@ -1,4 +1,4 @@
-class CreateGoals < ActiveRecord::Migration[6.0]
+class CreateGoals < ActiveRecord::Migration[5.2]
   def change
 
   end

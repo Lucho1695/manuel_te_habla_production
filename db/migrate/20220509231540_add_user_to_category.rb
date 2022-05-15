@@ -1,4 +1,4 @@
-class AddUserToCategory < ActiveRecord::Migration[6.0]
+class AddUserToCategory < ActiveRecord::Migration[5.2]
   def change
     add_column :categories, :users, :json
     add_reference :categories, :creator

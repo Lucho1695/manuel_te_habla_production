@@ -1,4 +1,4 @@
-class CreateGroupUserPeople < ActiveRecord::Migration[6.0]
+class CreateGroupUserPeople < ActiveRecord::Migration[5.2]
   def change
     create_table :group_user_people do |t|
       t.bigint :user_id

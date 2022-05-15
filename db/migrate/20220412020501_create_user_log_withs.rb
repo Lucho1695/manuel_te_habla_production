@@ -1,4 +1,4 @@
-class CreateUserLogWiths < ActiveRecord::Migration[6.0]
+class CreateUserLogWiths < ActiveRecord::Migration[5.2]
   def change
     create_table :user_log_withs do |t|
       t.references :user_log, null: false, foreign_key: true
