@@ -8,9 +8,9 @@ default: &default
     # adapter: sqlite3
     # pool: 5
     # timeout: 5000
-  adapter: mysql2
-  username: rails
-  password: anonymous
+  adapter: postgresql
+  username: postgres
+  password: postgres
   timeout: 5000
   host: 127.0.0.1
   pool: 20
@@ -29,6 +29,7 @@ test:
   database: test_manuel_te_habla
 
 production:
-  adapter: postgresql
-  encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %> 
+  <<: *default
+  database: manuel_te_habla
+  username: manuel_te_habla_user
+  password: M3NU3LT3H4BL4U3R
