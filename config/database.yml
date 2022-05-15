@@ -29,5 +29,6 @@ test:
   database: test_manuel_te_habla
 
 production:
-  <<: *default
-  database: manuel_te_habla
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %> 

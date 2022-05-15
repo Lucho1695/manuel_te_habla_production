@@ -55,7 +55,6 @@ class CategoriesController < ApplicationController
         @users << User.find_by(email: person.email).id
       end
     end
-    byebug
     @ids = @category.users["ids"].flatten
 
   end
