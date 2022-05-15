@@ -12,7 +12,10 @@
 
 ActiveRecord::Schema.define(version: 2022_05_15_210117) do
 
-  create_table "active_storage_attachments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
     t.bigint "record_id", null: false
@@ -22,7 +25,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
-  create_table "active_storage_blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "active_storage_blobs", force: :cascade do |t|
     t.string "key", null: false
     t.string "filename", null: false
     t.string "content_type"
@@ -33,44 +36,43 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "answers", force: :cascade do |t|
     t.bigint "question_id", null: false
     t.string "name"
     t.string "answer_file"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
 
-  create_table "articles", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "articles", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "blobs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.binary "data", limit: 16777215
+  create_table "blobs", force: :cascade do |t|
   end
 
-  create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "categories", force: :cascade do |t|
     t.string "name"
     t.string "category_image"
     t.boolean "public", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.json "users"
     t.bigint "creator_id"
     t.index ["creator_id"], name: "index_categories_on_creator_id"
   end
 
-  create_table "group_user_people", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "group_user_people", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "person_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
-  create_table "image_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "image_files", force: :cascade do |t|
     t.string "filename"
     t.string "content_type"
     t.integer "file_size"
@@ -86,7 +88,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["filename"], name: "index_image_files_on_filename"
   end
 
-  create_table "people", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "people", force: :cascade do |t|
     t.string "name"
     t.boolean "status", default: true
     t.integer "roles", default: 2
@@ -95,40 +97,40 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.string "email"
     t.string "password"
     t.integer "user_role"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "avatar"
     t.index ["email"], name: "index_people_on_email", unique: true
     t.index ["name"], name: "index_people_on_name"
     t.index ["user_id"], name: "index_people_on_user_id"
   end
 
-  create_table "questionnaires", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "questionnaires", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "creator_id"
     t.index ["creator_id"], name: "index_questionnaires_on_creator_id"
   end
 
-  create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "questions", force: :cascade do |t|
     t.bigint "questionnaire_id", null: false
     t.string "name"
     t.integer "question_type"
     t.boolean "required"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["questionnaire_id"], name: "index_questions_on_questionnaire_id"
   end
 
-  create_table "responses", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "responses", force: :cascade do |t|
     t.bigint "question_id"
     t.bigint "answer_id"
     t.bigint "user_id"
     t.float "points"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.text "audio_response", limit: 4294967295
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "audio_response"
     t.integer "response_type"
     t.bigint "questionnaire_id"
     t.index ["answer_id"], name: "index_responses_on_answer_id"
@@ -137,15 +139,15 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["user_id"], name: "index_responses_on_user_id"
   end
 
-  create_table "say_ideas", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "say_ideas", force: :cascade do |t|
     t.string "title"
     t.integer "say_idea_type"
     t.boolean "public"
     t.bigint "category_id"
     t.bigint "article_id"
     t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "say_idea_image"
     t.bigint "say_ideas_id"
     t.bigint "creator_id"
@@ -156,7 +158,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["user_id"], name: "index_say_ideas_on_user_id"
   end
 
-  create_table "subcategories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "subcategories", force: :cascade do |t|
     t.string "title"
     t.string "subcategories_image"
     t.bigint "article_id"
@@ -167,7 +169,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["category_id"], name: "index_subcategories_on_category_id"
   end
 
-  create_table "upload_files", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "upload_files", force: :cascade do |t|
     t.string "filename"
     t.string "content_type"
     t.string "sub_title"
@@ -192,15 +194,15 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["video_id"], name: "index_upload_files_on_video_id"
   end
 
-  create_table "user_log_withs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "user_log_withs", force: :cascade do |t|
     t.bigint "user_log_id", null: false
     t.json "data"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_log_id"], name: "index_user_log_withs_on_user_log_id"
   end
 
-  create_table "user_logs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "user_logs", force: :cascade do |t|
     t.bigint "user_id"
     t.string "ip_address"
     t.string "controller"
@@ -209,12 +211,12 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.string "browser"
     t.boolean "have_more_description", default: false
     t.string "params"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_logs_on_user_id"
   end
 
-  create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", force: :cascade do |t|
     t.string "name"
     t.integer "user_roles", default: 2
     t.string "email", default: "", null: false
@@ -237,12 +239,12 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  create_table "videos", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "videos", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.string "url"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.bigint "creator_id"
     t.index ["creator_id"], name: "index_videos_on_creator_id"
   end

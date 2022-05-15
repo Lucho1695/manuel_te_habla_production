@@ -30,5 +30,3 @@ test:
 production:
   <<: *default
   database: manuel_te_habla
-  username: manuel_te_habla_user
-  password: M3NU3LT3H4BL4U3R
