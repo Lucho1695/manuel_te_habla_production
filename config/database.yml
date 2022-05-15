@@ -14,7 +14,6 @@ default: &default
   timeout: 5000
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
-
 development:
   <<: *default
   database: development_manuel_te_habla
