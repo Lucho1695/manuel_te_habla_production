@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
   end
 
   create_table "blobs", force: :cascade do |t|
+    t.binary "data"
   end
 
   create_table "categories", force: :cascade do |t|

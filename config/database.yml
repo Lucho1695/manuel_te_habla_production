@@ -11,12 +11,13 @@ default: &default
   adapter: postgresql
   username: postgres
   password: postgres
-  timeout: 5000
+  host: localhost
+  port: 5432
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
-  database: development_manuel_te_habla
+  database: postgres_development_manuel_te_habla
   #database: db/development.sqlite3
   # database: db/production.sqlite3
 
@@ -25,7 +26,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: test_manuel_te_habla
+  database: postgres_test_manuel_te_habla
 
 production:
   <<: *default
