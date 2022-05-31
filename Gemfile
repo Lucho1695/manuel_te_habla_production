@@ -45,7 +45,7 @@ gem 'jquery-rails'
 gem 'carrierwave', '~> 2.0'
 gem 'bootstrap-select-rails'
 gem "select2-rails"
-gem "aws-sdk-s3", require: false
+gem "aws-sdk-s3"
 
 gem "chartkick"
 gem 'mini_magick'

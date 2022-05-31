@@ -16,10 +16,10 @@ local:
 
 amazon:
   service: S3
-  access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
-  secret_access_key: <%= ENV['BUCKETEER_AWS_SECRET_ACCESS_KEY'] %>
-  region: <%= ENV['BUCKETEER_AWS_REGION'] %>
-  bucket: <%= ENV['BUCKETEER_BUCKET_NAME'] %>
+  access_key_id: "AKIAVRK4YSX77KWRZFEJ"
+  secret_access_key: "TplM/8dWVnGmMiBQ/pxrzwQg9avrdpITvd5elCM1"
+  region: "us-east-1"
+  bucket: "manuel_te_habla_images"
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
