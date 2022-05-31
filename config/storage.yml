@@ -19,7 +19,7 @@ amazon:
   access_key_id: "AKIAVRK4YSX77KWRZFEJ"
   secret_access_key: "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"
   region: "us-east-1"
-  bucket: "manuel_te_habla_images"
+  bucket: "manueltehablaproduction"
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
