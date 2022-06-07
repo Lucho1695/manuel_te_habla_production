@@ -28,7 +28,8 @@
 </div>
 
 <script>
-  <% if request.fullpath == "/people/#{current_user.id}/edit" %>
+  <% person = Person.find_by(email: current_user.email)%>
+  <% if request.fullpath == "/people/#{person.id}/edit" %>
     <% else %>
     <% if !Person.find_by(email: current_user.email).avatar.attached? %>
       alert("Debe agregar una imagen a su perfil para continuar")
