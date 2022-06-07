@@ -17,20 +17,20 @@
       <br><br>
       <%= form.label "Se conjuga con", class: 'col-md-2 text-right'%>
       <% group_options = [['Sujetos', SayIdea.where(say_idea_type: [1]).pluck(:title, :id)], ['Verbos', SayIdea.where(say_idea_type: [2]).pluck(:title, :id)]]%>
-      <%= form.select :say_ideas_id, grouped_options_for_select(group_options), { select: say_idea.say_ideas_id, include_blank: true }, {selected: say_idea.say_ideas_id, class: "form-control select2 col-md-9"}  %>
+      <%= form.select :say_ideas_id, grouped_options_for_select(group_options), {selected: say_idea.say_ideas_id,, include_blank: true }, {class: "form-control select2 col-md-9"}  %>
       <br><br>
       <%= form.label "Tipo de idea:", class: 'col-md-2 text-right' %>
       <%= form.select :say_idea_type, options_for_select(
       SayIdea.types.map {
         |key, value| [key.titleize,
         value]
-      }), { select: say_idea.say_idea_type, include_blank: true }, {selected: say_idea.say_idea_type, class: "form-control select2 col-md-9"} %>
+      }), { selected: say_idea.say_idea_type, include_blank: true }, {class: "form-control select2 col-md-9"} %>
       <br><br>
       <%= form.label "Publica:", class: 'col-md-2 text-right' %>
       <%= form.check_box :public, class: 'form-control col-md-9', value: say_idea.public %>
       <br><br>
       <%= form.label "Articulo:", class: 'col-md-2 text-right' %>
-      <%= form.collection_select :article_id, Article.all, :id, :name, {include_blank: true}, {selected: say_idea.article_id,class: "form-control select2 col-md-9"} %>
+      <%= form.collection_select :article_id, Article.all, :id, :name, {selected: say_idea.article_id, include_blank: true}, {class: "form-control select2 col-md-9"} %>
       <br><br>
       <%= form.label "Subir imagen", class: 'col-md-2 text-right' %>
       <%= form.file_field :say_idea_image, class: 'col-md-9' %>

@@ -80,7 +80,7 @@ class CategoriesController < ApplicationController
         @category.category_image = "#{@category.id}"
         @category.save!
 
-        format.html { redirect_to @category, notice: 'Category was successfully created.' }
+        format.html { redirect_to categories_path, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
