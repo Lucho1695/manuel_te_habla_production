@@ -27,7 +27,7 @@
         <div class="card-body">
           <div class="row">
             <%= link_to complement_say_ideas_path(id: say_idea, last_idea: @last_idea) do %>
-              <%= show_image_say_idea(say_idea) %>
+              <%= show_image_say_idea(say_idea.say_idea_image) %>
             <% end %>
           </div>
         </div>

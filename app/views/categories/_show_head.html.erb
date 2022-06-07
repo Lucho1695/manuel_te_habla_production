@@ -14,13 +14,13 @@
           <i class="fas fa-edit"></i> <%= t('general.edit') + " " +
           t("application.#{controller.controller_name}") %>
         <% end %>
-        <%= link_to url_for({controller: controller.controller_name,
-          action: :index}), class: 'btn btn-info text-white', id: 'index_button' do%>
-          <i class="fas fa-list-ul text-white"></i> Regresar
-          <%= t("application.#{controller.controller_name}") %>
-        <% end %>
       </div>
     <% end %>
+    <%= link_to url_for({controller: controller.controller_name,
+      action: :index}), class: 'btn btn-info text-white', id: 'index_button' do%>
+      <i class="fas fa-list-ul text-white"></i> Regresar
+      <%= t("application.#{controller.controller_name}") %>
+      <% end %>
     <hr id="hr">
     <hr id="hr">
   </div>
