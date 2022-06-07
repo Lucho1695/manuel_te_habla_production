@@ -6,7 +6,14 @@ class GamesController < ApplicationController
   def puzzle
     record_activity("Ingreso al rompecabezas")
     @categories = Category.where(public: true) if current_user.nil?
-    @categories = Category.all if !current_user.nil?
+    if !current_user.nil?
+      @categories = []
+      Category.all.each do | category |
+        if !category.users.nil?
+          @categories << category if category.users["ids"].flatten.include?("#{current_user.id}")
+        end
+      end
+    end
   end
 
   def puzzle_category
