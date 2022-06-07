@@ -55,7 +55,9 @@ class CategoriesController < ApplicationController
         @users << User.find_by(email: person.email).id
       end
     end
-    @ids = @category.users["ids"].flatten
+    if !@category.users.nil?
+      @ids = @category.users["ids"].flatten
+    end
 
   end
 
