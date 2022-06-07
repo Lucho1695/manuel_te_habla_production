@@ -15,7 +15,7 @@ class Video < ApplicationRecord
       else
         values = values.last
       end
-      self.url = "http://www.youtube.com/embed/" + values
+      self.url = "https://www.youtube.com/embed/" + values
     end
   end
 
