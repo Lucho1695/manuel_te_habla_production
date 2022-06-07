@@ -17,9 +17,25 @@
             </h3>
           </div>
           <div class="card-body">
+            <% onclick="(#{say_idea.title})"%>
+            <% onClick2="myFunction('', '#{say_idea.title}')"%>
+            <% value="#{say_idea.title}"%>
+            <% id= "#{say_idea.title.gsub(' ', '')}" %>
             <div class="row">
               <%= link_to verbs_say_ideas_path(id: say_idea.id) do %>
-                <%= show_image_say_idea(say_idea.say_idea_image) %>
+                <%= image_tag say_idea.say_idea_image,
+                style: "width: 315px;
+                height: 315px;
+                max-width: 100%;
+                max-height: 100%;
+                background-color: #eee;
+                white-space: nowrap;
+                text-align: center;",
+                class: "navButton text-white",
+                onClick: onclick,
+                onclick: onClick2,
+                value: value + " ",
+                id: id %>
               <% end %>
             </div>
           </div>
