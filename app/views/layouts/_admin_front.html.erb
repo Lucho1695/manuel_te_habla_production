@@ -33,7 +33,7 @@
     <% else %>
     <% if !Person.find_by(email: current_user.email).avatar.attached? %>
       alert("Debe agregar una imagen a su perfil para continuar")
-      window.location.href = "https://manueltehabla.herokuapp.com//people/<%=current_user.id%>/edit";
+      window.location.href = "https://manueltehabla.herokuapp.com//people/<%=person.id%>/edit";
     <% end %>
   <% end %>
 </script>
