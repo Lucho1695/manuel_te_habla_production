@@ -20,31 +20,28 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 
 </head>
+<body>
+  <% if current_user.nil? %>
+    <body class="body_user">
+      <!-- Page Wrapper -->
+      <%= render "layouts/not_user" %>
+    </body>
+  <% elsif current_user.user_roles == "Niño" %>
+    <body class="body_user">
+      <!-- Page Wrapper -->
+      <%= render "layouts/user_front" %>
+    </body>
+  <% elsif current_user.user_roles== "SuperAdmin" || current_user.user_roles== "Adulto Responsable"  %>
+    <body class="super_admin">
+      <!-- Page Wrapper -->
+      <%= render "layouts/admin_front" %>
+    </body>
+  <% end %>
+  <footer class="footer">
+    <%= render "layouts/footer"%>
+  </footer>
 
-<% if current_user.nil? %>
-  <body class="body_user">
-    <!-- Page Wrapper -->
-    <%= render "layouts/not_user" %>
-  </body>
-<% elsif current_user.user_roles == "Niño" %>
-  <body class="body_user">
-    <!-- Page Wrapper -->
-    <%= render "layouts/user_front" %>
-  </body>
-<% elsif current_user.user_roles== "SuperAdmin" || current_user.user_roles== "Adulto Responsable"  %>
-  <body class="super_admin">
-    <!-- Page Wrapper -->
-    <%= render "layouts/admin_front" %>
-  </body>
-<% end %>
-
-<div class="col-md-12">
-  <br><br><br><br><br>
-</div>
-<div class="">
-  <%= render "layouts/footer"%>
-</div>
-
+</body>
 </html>
 
 <script>
