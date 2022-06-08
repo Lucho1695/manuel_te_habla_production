@@ -36,8 +36,6 @@ class PeopleController < ApplicationController
     end
     respond_to do |format|
       if @person.save
-        @person.avatar = "#{@person.id}"
-        @person.save!
         format.html { redirect_to people_path, notice: "Person was successfully created." }
         format.json { render :show, status: :created, location: @person }
       else
