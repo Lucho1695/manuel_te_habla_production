@@ -77,9 +77,6 @@ class CategoriesController < ApplicationController
     end
     respond_to do |format|
       if @category.save
-        @category.category_image = "#{@category.id}"
-        @category.save!
-
         format.html { redirect_to categories_path, notice: 'Category was successfully created.' }
         format.json { render :show, status: :created, location: @category }
       else
