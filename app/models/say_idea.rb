@@ -1,6 +1,7 @@
 class SayIdea < ApplicationRecord
   belongs_to :say_idea, class_name: "SayIdea", foreign_key: 'say_ideas_id', optional: true
   has_one_attached :say_idea_image, dependent: :destroy
+  has_many :user, class_name: "User"
 
   enum types: {
     "Sujeto": 1,

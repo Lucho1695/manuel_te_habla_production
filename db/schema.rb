@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_15_210117) do
+ActiveRecord::Schema.define(version: 2022_06_08_231904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,6 +152,7 @@ ActiveRecord::Schema.define(version: 2022_05_15_210117) do
     t.string "say_idea_image"
     t.bigint "say_ideas_id"
     t.bigint "creator_id"
+    t.json "users"
     t.index ["article_id"], name: "index_say_ideas_on_article_id"
     t.index ["category_id"], name: "index_say_ideas_on_category_id"
     t.index ["creator_id"], name: "index_say_ideas_on_creator_id"
