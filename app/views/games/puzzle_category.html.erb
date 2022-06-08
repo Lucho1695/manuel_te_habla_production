@@ -10,7 +10,7 @@
       <input type='button' class="btn btn-success" id='barajar' value='Barajar' />
       <%= link_to puzzle_game_path("puzzle"),
       :class => "btn btn-info" do %>
-      <i class="fas fa-save"></i> "Regresar"
+      <i class="fas fa-save"></i> Regresar
       <% end %>
       <div><span></span></div>
     </div>
@@ -34,7 +34,7 @@
 </div>
 <style media="screen">
   td.pieza {
-    background-image: url(https://manueltehabla.herokuapp.com/uploads/prueba/subcategory<%= @image.id %>/<%= @image.id %>);
+    background-image: url(<%= rails_blob_url @image.subcategories_image %>);
     background-size: 400px 400px;
     transition:.3s ease-in-out; -moz-transition:.3s
     ease-in-out; -webkit-transition:.3s ease-in-out; -o-transition:.3s
