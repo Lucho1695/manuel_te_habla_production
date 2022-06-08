@@ -38,7 +38,7 @@ class PeopleController < ApplicationController
       if @person.save
         @person.avatar = "#{@person.id}"
         @person.save!
-        format.html { redirect_to @person, notice: "Person was successfully created." }
+        format.html { redirect_to people_path, notice: "Person was successfully created." }
         format.json { render :show, status: :created, location: @person }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -56,13 +56,13 @@ class PeopleController < ApplicationController
       if current_user.id == @person.id
         format.html { redirect_to destroy_user_session_path, notice: "Se ha modificado su contraseña." }
       else
-        format.html { redirect_to @person, notice: "La persona a sido editada exitosamente." }
-        format.json { render :show, status: :ok, location: @person }
+        format.html { redirect_to people_path, notice: "La persona a sido editada exitosamente." }
+        format.json { render :show, status: :ok, location: people_path }
       end
     else
       if @person.update(person_params)
-        format.html { redirect_to @person, notice: "La persona a sido editada exitosamente." }
-        format.json { render :show, status: :ok, location: @person }
+        format.html { redirect_to people_path, notice: "La persona a sido editada exitosamente." }
+        format.json { render :show, status: :ok, location: people_path }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @person.errors, status: :unprocessable_entity }

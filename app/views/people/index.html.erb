@@ -57,7 +57,13 @@
           <% @childrens.each do |person| %>
             <tr>
               <td><%= person.name %></td>
-              <td><img class="img-profile rounded-circle" style='width: 250px; height:250px;' src="<%= person.avatar %>"></td>
+              <td>
+                <%= image_tag person.avatar, class: "img-profile rounded-circle", style: "height: 215px;
+                background-color: #eee;
+                white-space: nowrap;
+                width: 215px;
+                text-align: center;" %>
+              </td>
               <% if person.status %>
               <td><%= "Activo" %></td>
               <% else %>
