@@ -24,10 +24,14 @@ class GamesController < ApplicationController
     if !current_user.nil?
       record_activity("Ingreso al memoria")
       person = Person.find_by(email: current_user.email)
-      categories = Category.where(creator_id: person.user_id)
+      categories = Category.all
+      @subcategories = []
+      Subcategory.where(category_id: categories.ids).sample(7).each do | subcategory |
+        if subcategory.subcategories_image.attached?
+          @subcategories << subcategory
+        end
+      end
 
-      @ids = Subcategory.where(category_id: categories.ids).ids.sample(7)
-      @names = Subcategory.find(@ids).pluck(:title)
     else
       @ids = []
     end

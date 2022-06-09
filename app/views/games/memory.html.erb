@@ -1,4 +1,4 @@
-<% if @ids.count >= 6 %>
+<% if @subcategories.count >= 6 %>
 <center>
   <div class="card border-info">
     <div class="card-header">
@@ -41,16 +41,16 @@
 <script type="text/javascript">
   if (document.getElementsByClassName("success").length != 12) {
     var images = [];
-    const ids = <%= @ids %>;
-    const names = <%= raw @names %>;
-
-    for (var i = 0; i < 6; i++) {
-      var img = '../../uploads/prueba/subcategory' + ids[i] + '/' + ids[i];
-      var name = String(names[i])
+    const ids = <%= @subcategories.pluck(:id) %>;
+    const names = <%= raw @subcategories.pluck(:title) %>;
+    <% @subcategories.each do | subcategory | %>
+      var img = "<%= rails_blob_url subcategory.subcategories_image %>";
+      var name = "<%= subcategory.title %>"
       var values = {image: img, name: name}
       images.push(values);
       images.push(values);
-    }
+    <% end %>
+
     randomizeImages();
 
     var output = "<ol>";
