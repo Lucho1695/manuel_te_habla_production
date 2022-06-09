@@ -26,12 +26,11 @@ class GamesController < ApplicationController
       person = Person.find_by(email: current_user.email)
       categories = Category.all
       @subcategories = []
-      Subcategory.where(category_id: categories.ids).sample(7).each do | subcategory |
+      Subcategory.where(category_id: categories.ids).sample(6).each do | subcategory |
         if subcategory.subcategories_image.attached?
           @subcategories << subcategory
         end
       end
-
     else
       @ids = []
     end

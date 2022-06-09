@@ -140,6 +140,8 @@
       });
 
       function Show(val, value){
+        speechSynthesis.cancel();
+
         var msg = new SpeechSynthesisUtterance();
         var msga = value;
         // msg.volume = 1; // 0 to 1
