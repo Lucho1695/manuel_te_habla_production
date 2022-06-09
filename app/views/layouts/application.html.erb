@@ -46,6 +46,7 @@
 
 <script>
   function myFunction(mensaje, val) {
+    speechSynthesis.cancel();
     var msg = new SpeechSynthesisUtterance();
     var msga = mensaje + val;
     // msg.volume = 1; // 0 to 1
