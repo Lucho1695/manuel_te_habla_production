@@ -31,7 +31,6 @@
           <% value="#{say_idea.title}"%>
           <% id= "#{say_idea.title.gsub(' ', '')}" %>
           <div class="row">
-            <%= link_to verbs_say_ideas_path(id: say_idea.id) do %>
               <%= image_tag say_idea.say_idea_image,
               style: "width: 315px;
               height: 315px;
@@ -45,7 +44,6 @@
               onclick: onClick2,
               value: value + " ",
               id: id %>
-            <% end %>
           </div>
         </div>
       </div>
