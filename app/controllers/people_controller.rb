@@ -49,14 +49,16 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
     if params[:person]["password"] != @person.password && params[:person]["password"].chars.count >= 6
-      @person.update(password: params[:person]["password"])
-      User.find(@person.id).update(password: params[:person]["password"])
-      if current_user.id == @person.id
-        format.html { redirect_to destroy_user_session_path, notice: "Se ha modificado su contraseña." }
-      else
-        format.html { redirect_to people_path, notice: "La persona a sido editada exitosamente." }
-        format.json { render :show, status: :ok, location: people_path }
+      if @person.update(password: params[:person]["password"])
+        User.find_by(email: @person.email).update(password: params[:person]["password"])
+        if current_user.id == @person.id
+          format.html { redirect_to destroy_user_session_path, notice: "Se ha modificado su contraseña." }
+        else
+          format.html { redirect_to people_path, notice: "La persona a sido editada exitosamente." }
+          format.json { render :show, status: :ok, location: people_path }
+        end
       end
+
     else
       if @person.update(person_params)
         format.html { redirect_to people_path, notice: "La persona a sido editada exitosamente." }
