@@ -33,6 +33,7 @@ es:
   application:
     categories: "Categorias"
     questionnaires: "Cuestionarios"
+    users: "Usario"
 
   controller:
     categories: "Categorías"
