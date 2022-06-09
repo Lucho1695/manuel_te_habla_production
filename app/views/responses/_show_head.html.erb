@@ -4,9 +4,9 @@
     <div class="col-md-12">
       <div class="text-center">
         <br>
-        <h1><b class="titulos_admin">
+        <h3><b class="titulos_admin">
           <%= @responses.first&.questionnaire&.name %>
-        </b></h1>
+        </b></h3>
       </div>
       <div class="col-md-12 text-right">
         <% if current_user.user_roles != "Niño" %>

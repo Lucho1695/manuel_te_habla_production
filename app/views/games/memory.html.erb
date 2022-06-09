@@ -2,14 +2,14 @@
 <center>
   <div class="card border-info">
     <div class="card-header">
-      <h1>Juego de Memoria</h1>
+      <h3>Juego de Memoria</h3>
       <%= link_to games_path(),
       :class => "btn btn-info text-white" do %>
       <i class="fas fa-save"></i>  Regresar
       <% end %>
     </div>
     <div class="card-body" id="start">
-      <h1>Debes encontrar parejas de elementos iguales o relacionados entre ellos</h1>
+      <h3>Debes encontrar parejas de elementos iguales o relacionados entre ellos</h3>
       <h3 class="col-md-12 text-center" id="time">
         <b id="hour">00:</b>
         <b id="min">00:</b>
@@ -256,6 +256,6 @@
   </script>
 <% else %>
   <div class="card bg-warning">
-    <h1 class="text-center">DEBE TENER POR LO MENOS 6 IMAGENES EN SUBCATEGORIAS</h1>
+    <h3 class="text-center">DEBE TENER POR LO MENOS 6 IMAGENES EN SUBCATEGORIAS</h3>
   </div>
 <% end %>
