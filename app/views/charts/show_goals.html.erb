@@ -14,15 +14,15 @@
          <div class="col-md-12 row">
            <label class="col-md-2 text-right">Nombre: </label>
            <% if current_user.user_roles == "SuperAdmin" %>
-             <%= collection_select(:get, :person_id, Person.where(roles: 2), :id, :name, {selected: @users}, class:'select2 col-md-10' , multiple: true, data: { placeholder: "Seleccione el nombre del niño a consultar"})%>
+             <%= collection_select(:get, :person_id, Person.where(roles: 2), :id, :name, {selected: @users}, class:'select2 col-md-8' , multiple: true, data: { placeholder: "Seleccione el nombre del niño a consultar"})%>
            <% elsif current_user.user_roles == "Adulto Responsable" %>
-             <%= collection_select(:get, :person_id, Person.where(user_id: current_user.id), :id, :name, { selected: @users}, class:'select2 col-md-10' , multiple: true, data: { placeholder: "Seleccione el nombre del niño a consultar"})%>
+             <%= collection_select(:get, :person_id, Person.where(user_id: current_user.id), :id, :name, { selected: @users}, class:'select2 col-md-8' , multiple: true, data: { placeholder: "Seleccione el nombre del niño a consultar"})%>
            <% end %>
          </div>
          <br><br>
          <div class="col-md-12 row">
            <label class="col-md-2 text-right">Preguntas: </label>
-           <%= collection_select(:get, :question_id, Question.find(@cuestionario.questions.ids), :id, :name, { selected: @question}, class:'select2 col-md-10' , multiple: true, data: { placeholder: "Seleccione la pregunta a consultar" })%>
+           <%= collection_select(:get, :question_id, Question.find(@cuestionario.questions.ids), :id, :name, { selected: @question}, class:'select2 col-md-8' , multiple: true, data: { placeholder: "Seleccione la pregunta a consultar" })%>
          </div>
          <br><br>
          <div class="text-right col-md-12">

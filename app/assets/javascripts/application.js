@@ -21,3 +21,5 @@
 //= require select2
 //= require cocoon
 //= require_tree .
+//= require chartkick
+//= require Chart.bundle

@@ -1,0 +1,404 @@
+/* styles for manuel te habla */
+
+
+#titles {
+  font-family: "comic_sans";
+  font-size: 3rem;
+  text-transform: uppercase;
+  background: rgb(84,200,247);
+  background: linear-gradient(180deg, rgba(84,200,247,1) 5%, rgba(142,183,228,1) 38%, rgba(31,99,175,1) 75%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* where is the secction of the navbar */
+.top_navbar {
+  background-color: #04AFE3;
+  height: 250px;
+  min-width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary:visited {
+  color: white;
+}
+
+#principalcard{
+  background-image: url(/assets/circle-2d1f587312034e113ce7ddb28bb3de96536fe7b9a5bb984f633f917dbc9ab59c.jpg);
+  background-attachment: scroll;
+  background-position: center;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.html {
+  background-image: url(/assets/circle-2d1f587312034e113ce7ddb28bb3de96536fe7b9a5bb984f633f917dbc9ab59c.jpg);
+}
+
+.top_navbar img {
+  margin-left: 13%;
+  position: absolute;
+  z-index: 1;
+  width: auto;
+  height: auto
+}
+
+#image_title{
+  margin-top: 1%;
+  margin-left: -15%;
+  width: 50%;
+  height: 50%;
+}
+
+#image_logo_login {
+  background-image: url(/assets/logo-1757c1745178503dc0469766789cefbec2e3dca4fff53097534e3284ba72455a.png);
+  width: 100%;
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+
+button {
+  border: none;
+  color: transparent;
+  color: white;
+  padding: 15px 16px;
+  font-size: 16px;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 25px;
+  box-shadow: 2px 2px 10px #666;
+}
+
+#cuestionario{
+  background-color: #9A0DE8;
+  margin: 9px;
+  border-radius: 12px;
+}
+
+#categorias{
+  background-color: #FD7400;
+  margin: 9px;
+  border-radius: 12px;
+}
+
+#videos{
+  background-color: #00CBE2;
+  margin: 9px;
+  border-radius: 12px;
+}
+
+#usuario{
+  background-color: #F92D36;
+  margin: 9px;
+  border-radius: 12px;
+}
+
+#express{
+  background-color: #555555;
+  margin: 9px;
+  border-radius: 12px;
+}
+
+#games{
+  background-color: #739E54;
+  margin: 9px;
+}
+
+#transparent_button{
+  margin: 9px;
+  border-radius: 12px;
+  color: transparent;
+  box-shadow: 2px 2px 10px transparent;
+}
+
+.rectangular {
+  padding: 15px;
+  background-color: white;
+  background-size:100% auto;
+  border-radius: 25px;
+  z-index: 1;
+  width:80%;
+  height: 130px;
+  border: 5px solid #D2D2D3;
+}
+
+#white {
+  background-image: url(/assets/circle-2d1f587312034e113ce7ddb28bb3de96536fe7b9a5bb984f633f917dbc9ab59c.jpg);
+}
+
+
+.button img{
+  width: 50px;
+  height: 50px
+}
+
+.i-am-centered { margin: auto; max-width: 1000px;}
+
+/* Tablas */
+#table_manuel {
+  border-collapse: collapse;
+  color: black;
+  text-align: center;
+  width: 100%;
+  border: 2px solid white;
+}
+
+#table_manuel thead {
+  background: #BFB2EB;
+  font-size: 20px;
+}
+
+#table_manuel tbody {
+  background: #D4CBF3
+}
+
+#table_manuel td, #table_manuel th {
+  border: 2px solid white;
+  padding: 8px;
+}
+
+
+#table_manuel tr:hover {background-color: #5C7EA3;}
+
+#icons {
+  width: 55px;
+  height: 55px;
+}
+
+#card{
+  background-color: #FFFF83
+}
+
+#card-header{
+  border-radius: 30px;
+  background-color: transparent;
+
+}
+
+.card {
+  background-color: transparent;
+}
+
+a{
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  background-color: darkblue;
+}
+
+.text{
+  opacity: 8;
+  color: black;
+}
+strong {
+  color: black;
+}
+b {
+  color: black;
+}
+
+h2, h3, h4, td, th{
+  color: black;
+}
+#dataTable{
+  overflow-x:auto;
+  border: 1px solid black;
+}
+
+#dataTable thead tr th{
+  text-align: center;
+  background: #F8FFBA;
+  border: 1px solid black;
+}
+
+#dataTable tbody tr td{
+  text-align: center;
+  border: 1px solid black;
+  font-size: 20px;
+}
+
+#header_subcategories{
+  background: #EBE8ED
+}
+
+#card_subcategory{
+  background: #F8F5FA
+}
+
+#navbar_top{
+  width: 100%;
+  height: 100%;
+  background: url(/assets/circle-2d1f587312034e113ce7ddb28bb3de96536fe7b9a5bb984f633f917dbc9ab59c.jpg);
+}
+
+b.titulos {
+  text-transform: uppercase;
+  -webkit-text-decoration: underline black;
+          text-decoration: underline black;
+  background: rgb(0,0,0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "comic_sans";
+}
+
+.titulos_admin {
+  text-transform: uppercase;
+  background: rgb(0,0,0);
+  background: linear-gradient(180deg, rgba(0,0,0,1) 2%, rgba(3,121,168,1) 44%, rgba(0,0,0,1) 91%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "comic_sans";
+}
+/* Nuevos estilos para la app */
+
+#header{
+  width: 100%;
+  height: 50px;
+  background: #2FD3AC;
+}
+
+#banner {
+  margin-top: 60px;
+  width: 100%;
+  height: 250px;
+  /* background-image: url(/assets/Banner-4d8f0f578c56cea0a504302d647056d8d9c3fa2b1f86598dcf3e1377ce22fa38.png); */
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center;
+  background-size: 100% auto;
+  z-index: -1;
+  overflow: auto
+}
+
+/* title_manuel_te_habla 1 */
+#titleManuelTeHabla{
+  position: absolute;
+  width: 35%;
+  top: 1%;
+  left: 35%;
+  right: 50%;
+}
+/* logo 1 */
+
+#logo{
+  position: absolute;
+  width: 18%;
+  top: 2%;
+  left: 0%;
+}
+
+
+.hero-wrapper {
+  clear: both;
+  position: relative;
+  width: 100%;
+  text-align: center;
+  font: 18px helvetica, sans-serif;
+  color: white;
+}
+
+.hero-sizing {
+  padding-top: 33%;
+}
+
+.hero-content {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.hero-content:before {
+  content: ' ';
+  display: block;
+  height: 40%;
+}
+
+.hero-content h1,
+.hero-content p {
+  margin-top: 0px;
+  margin-bottom: 6px;
+}
+
+
+/* Rectangle 2 */
+#rectangle {
+  max-width: 100%;
+  height: 100%;
+
+  background: #FFFFFF;
+  mix-blend-mode: normal;
+  border: 2px solid #3356D1;
+  box-sizing: border-box;
+  border-radius: 30px;
+}
+
+
+
+/* circle 1 */
+html {
+  background: url(/assets/circle-2d1f587312034e113ce7ddb28bb3de96536fe7b9a5bb984f633f917dbc9ab59c.jpg);
+  width: 100%;
+  height: 100%;
+  background-repeat: no-repeat;
+}
+
+/* Rectangle 2 */
+#iframe{
+  position: absolute;
+  width: 1046px;
+  height: 852px;
+  left: 187px;
+  top: 353px;
+
+  background: #FFFFFF;
+  mix-blend-mode: normal;
+  border: 2px solid #3356D1;
+  box-sizing: border-box;
+  border-radius: 30px;
+}
+
+/* Line 2 */
+#separator{
+  position: absolute;
+  width: 912px;
+  height: 0px;
+  left: 240.5px;
+  top: 504.5px;
+
+  mix-blend-mode: normal;
+  border: 2px solid #BBD133;
+}
+
+/* Line 1 */
+#separator{
+  position: absolute;
+  width: 913px;
+  height: 0px;
+  left: 240px;
+  top: 497px;
+
+  border: 2px solid #BBD133;
+}
+
+#hr {
+  width: 100%;
+  height: 1px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border-width: 2px;
+  border-color: #BBD133;
+}
+
+#image_logo_admin {
+  width: 100%;
+  height: 95%;
+}
