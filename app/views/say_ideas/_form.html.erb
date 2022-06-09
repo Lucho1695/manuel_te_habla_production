@@ -16,7 +16,7 @@
       <%= form.text_field :title, class: 'form-control col-md-9' %>
       <br><br>
       <%= form.label "Se conjuga con", class: 'col-md-2 text-right'%>
-      <% group_options = [['Sujetos', SayIdea.where(say_idea_type: [1]).pluck(:title, :id)], ['Verbos', SayIdea.where(say_idea_type: [2]).pluck(:title, :id)]]%>
+      <% group_options = [['Sujetos', SayIdea.where(creator_id: current_user, say_idea_type: [1]).pluck(:title, :id)], ['Verbos', SayIdea.where(say_idea_type: [2]).pluck(:title, :id)]]%>
       <%= form.select :say_ideas_id, grouped_options_for_select(group_options, say_idea.say_ideas_id), {include_blank: true }, {class: "form-control form-select col-md-9"}  %>
       <br><br>
       <%= form.label "Tipo de idea:", class: 'col-md-2 text-right' %>
