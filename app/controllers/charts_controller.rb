@@ -2,7 +2,7 @@ class ChartsController < ApplicationController
   before_action :authenticate_user!
 
   def goals
-    users = Person.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
+    users = User.where(email: Person.where(user_id: current_user.id).pluck(:email))  if current_user.user_roles == "Adulto Responsable"
     users = Person.where(roles: 2) if current_user.user_roles == "SuperAdmin"
 
     responses = Response.where(user_id: users.ids)
@@ -96,10 +96,10 @@ class ChartsController < ApplicationController
       end
     else
       @user_logs = UserLog.all if current_user.user_roles == "SuperAdmin"
-      @user_logs = UserLog.where(user_id: Person.where(user_id: current_user.id).ids) if current_user.user_roles == "Adulto Responsable"
+      @user_logs = UserLog.where(user_id: User.where(email: Person.where(user_id: current_user.id).pluck(:email)).ids) if current_user.user_roles == "Adulto Responsable"
     end
     users = []
-    @user_logs.last(40).each do | user_log |
+    @user_logs.last(200).each do | user_log |
       if user_log.user.nil?
         users << user_log.ip_address
       else

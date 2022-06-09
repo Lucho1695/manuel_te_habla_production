@@ -18,9 +18,9 @@
             <div class="col-md-12 row">
               <label class="col-md-1 text-right">Nombre: </label>
               <% if current_user.user_roles == "SuperAdmin" %>
-                <%= collection_select(:get, :person_id, Person.all, :id, :name, { include_blank: "Seleccione nombre del niño" }, class:'form-control col-md-11')%>
+                <%= collection_select(:get, :person_id, User.all, :id, :name, { include_blank: "Seleccione nombre del niño" }, class:'form-control col-md-11')%>
               <% elsif current_user.user_roles == "Adulto Responsable" %>
-                <%= collection_select(:get, :person_id, Person.where(user_id: current_user.id), :id, :name, { include_blank: "Seleccione nombre del niño" }, class:'form-control col-md-11')%>
+                <%= collection_select(:get, :person_id, User.where(email: Person.where(user_id: current_user.id).pluck(:email)), :id, :name, { include_blank: "Seleccione nombre del niño" }, class:'form-control col-md-11')%>
               <% end %>
             </div>
             <br><br>
