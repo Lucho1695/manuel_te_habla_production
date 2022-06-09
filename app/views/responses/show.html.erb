@@ -1,13 +1,5 @@
 <div class="card border-primary">
-  <% if !current_user.nil? %>
-    <% if current_user.user_roles == "SuperAdmin" %>
-      <%= render "show_head" %>
-    <% else %>
-      <%= render "show_head" %>
-    <% end %>
-  <% else %>
-    <%= render "show_head" %>
-  <% end %>
+  <%= render "show_head" %>
 
   <% if @responses.empty? %>
     <div class="card border-info">
