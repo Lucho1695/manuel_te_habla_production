@@ -8,7 +8,7 @@
           {include_blank: "Seleccione tipo de pregunta"}, {class:'form-control question_options'} %>
         </div>
         <%= f.hidden_field :_destroy %>
-        <%= f.text_field :name, placeholder: 'Debe seleccionar un tipo de pregunta', class: 'form-control name', required: true %>
+        <%= f.text_field :name, placeholder: 'Escriba la descripcion de le pregunta', class: 'form-control name', required: true %>
         <div class='form-group'>
           <br><br>
           <%= link_to_add_association(f, :answers, data: {"association-insertion-method" => "append" }, partial: "answer_fields", class: "answer_fields" ) do %>
