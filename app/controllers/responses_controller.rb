@@ -17,6 +17,7 @@ class ResponsesController < ApplicationController
     if current_user.user_roles == "Niño"
       @questions = Question.where(questionnaire_id: params[:questionnaire_id])
       @responses = Response.where(questionnaire_id: params[:questionnaire_id], user_id: current_user.id)
+      @responses.order('created_at')
     else
       @questions = Question.where(questionnaire_id: params[:questionnaire_id])
       if !params[:filter].nil?
@@ -35,6 +36,7 @@ class ResponsesController < ApplicationController
       else
         @responses = Response.where(questionnaire_id: params[:questionnaire_id])
       end
+      @responses.order('created_at')
     end
   end
 
