@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 gem 'bootstrap', '~> 4.6.1'
 gem 'bootstrap_sb_admin_base_v2'
-gem 'font-awesome-sass', '~> 6.1.1'
+gem "font-awesome-rails"
 # Use ActiveStorage variant
 # gem 'mini_magick', '~> 4.8'
 

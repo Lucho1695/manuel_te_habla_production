@@ -18,6 +18,8 @@ es:
       invalid_token: 'Ficha de autenticación invalida.'
       timeout: 'Su sesión ha expirado, por favor ingrese nuevamente para continuar.'
       inactive: 'Su cuenta aún no ha sido activada.'
+      user:
+        not_found_in_database: "Usuario no registrado en el sistema"
     sessions:
       user:
         already_signed_out: "Su sesión ha sido finalizada"
