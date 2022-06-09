@@ -50,11 +50,7 @@ class PeopleController < ApplicationController
     respond_to do |format|
     if params[:person]["password"] != @person.password && params[:person]["password"].chars.count >= 6
       if @person.update(password: params[:person]["password"])
-        User.find_by(email: @person.email).update(password: params[:person]["password"],
-          eamil: params[:person][:email],
-          name: params[:person][:name],
-          avatar: parmas[:person][:avatar]
-        )
+        User.find_by(email: @person.email).update(password: params[:person]["password"])
         if current_user.id == @person.id
           format.html { redirect_to destroy_user_session_path, notice: "Se ha modificado su contraseña." }
         else
