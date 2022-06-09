@@ -17,14 +17,14 @@
       <br><br>
       <%= form.label "Se conjuga con", class: 'col-md-2 text-right'%>
       <% group_options = [['Sujetos', SayIdea.where(say_idea_type: [1]).pluck(:title, :id)], ['Verbos', SayIdea.where(say_idea_type: [2]).pluck(:title, :id)]]%>
-      <%= form.select :say_ideas_id, grouped_options_for_select(group_options), {selected: say_idea.say_ideas_id, include_blank: true }, {class: "form-control form-select col-md-9"}  %>
+      <%= form.select :say_ideas_id, grouped_options_for_select(group_options, say_idea.say_ideas_id), {include_blank: true }, {class: "form-control form-select col-md-9"}  %>
       <br><br>
       <%= form.label "Tipo de idea:", class: 'col-md-2 text-right' %>
       <%= form.select :say_idea_type, options_for_select(
       SayIdea.types.map {
         |key, value| [key.titleize,
         value]
-      }), {selected: say_idea.say_idea_type, include_blank: true }, {class: "form-control form-select col-md-9"} %>
+      }, say_idea.say_idea_type ), {include_blank: "Seleccione", }, {class: "form-control form-select col-md-9"} %>
       <br><br>
       <div class="col-md-12 row">
         <%= form.label "Niños que pueden ver esta categoria" , class: "col-md-3 form-label text-right"%>
@@ -39,11 +39,8 @@
       <br><br>
       <%= form.label "Subir imagen", class: 'col-md-2 text-right' %>
       <%= form.file_field :say_idea_image, class: 'col-md-9' %>
-      <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4 text-center">
-          <a href="<%= say_idea.say_idea_image %>" target="_blank" onclick="return <%= say_idea.say_idea_image.present? ? true : false %>"><%= show_image(say_idea.say_idea_image) %></a>
-        </div>
+      <div class="col-md-12 text-center">
+        <%= show_image(say_idea.say_idea_image) %>
       </div>
     </div>
     <div class="actions">
