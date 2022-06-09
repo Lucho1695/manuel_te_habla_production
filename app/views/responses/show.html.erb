@@ -34,7 +34,7 @@
   <br>
   <div class="card-deck">
     <div class="col-md-12 row">
-      <% @responses.each do | response |%>
+      <% @responses.order('created_at').each do | response |%>
       <div class="col-md-6">
         <br>
         <div class="card border-info">
