@@ -23,26 +23,26 @@ class ChartsController < ApplicationController
       @question = params[:get][:question_id]
       case !params[:filter].nil?
       when !params[:get][:person_id].join.empty? && params[:get][:question_id].join.empty?
-        users = Person.where(id: params[:get][:person_id])
+        users = User.where(id: params[:get][:person_id])
         responses = Response.where(user_id: users.ids, questionnaire_id: params[:goal_id])
       when params[:get][:person_id].join.empty? && params[:get][:question_id].join.empty?
-        users = Person.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
-        users = Person.where(roles: 2) if current_user.user_roles == "SuperAdmin"
+        users = User.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
+        users = User.where(user_roles: 2) if current_user.user_roles == "SuperAdmin"
         responses = Response.where(user_id: users.ids, questionnaire_id: params[:goal_id])
       when !params[:get][:question_id].join.empty? && params[:get][:person_id].join.empty?
-        users = Person.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
-        users = Person.where(roles: 2) if current_user.user_roles == "SuperAdmin"
+        users = User.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
+        users = User.where(user_roles: 2) if current_user.user_roles == "SuperAdmin"
         responses = Response.where(user_id: users.ids, question_id: params[:get][:question_id])
       when params[:get][:person_id].join.empty? && !params[:get][:question_id].join.empty?
-        users = Person.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
-        users = Person.where(roles: 2) if current_user.user_roles == "SuperAdmin"
+        users = User.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
+        users = User.where(user_roles: 2) if current_user.user_roles == "SuperAdmin"
         responses = Response.where(user_id: users.ids, question_id: params[:get][:question_id])
       when !params[:get][:person_id].join.empty? && !params[:get][:question_id].join.empty?
-        users = Person.where(id: params[:get][:person_id])
+        users = User.where(id: params[:get][:person_id])
         responses = Response.where(user_id: users.ids, question_id: params[:get][:question_id], questionnaire_id: params[:goal_id])
       else
-        users = Person.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
-        users = Person.where(roles: 2) if current_user.user_roles == "SuperAdmin"
+        users = User.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
+        users = User.where(user_roles: 2) if current_user.user_roles == "SuperAdmin"
         responses = Response.where(user_id: users.ids, questionnaire_id: params[:goal_id])
       end
     else
