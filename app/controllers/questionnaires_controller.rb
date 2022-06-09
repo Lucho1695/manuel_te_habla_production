@@ -11,7 +11,7 @@ class QuestionnairesController < ApplicationController
       @questionnaires = Questionnaire.where(creator_id: current_user.id)
     elsif current_user.user_roles == "Niño"
       person = Person.find_by(email: current_user.email)
-      @questionnaires = Questionnaire.all
+      @questionnaires = Questionnaire.where(creator_id: person.user_id)
     end
   end
 

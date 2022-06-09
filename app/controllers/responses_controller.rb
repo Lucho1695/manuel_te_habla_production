@@ -24,11 +24,11 @@ class ResponsesController < ApplicationController
         @question = params[:get][:question_id]
         case !params[:filter].nil?
         when !params[:get][:person_id].join.empty? && params[:get][:question_id].join.empty?
-          @responses = Response.where(questionnaire_id: params[:questionnaire_id], user_id: params[:get][:person_id])
+          @responses = Response.where(user_id: params[:get][:person_id], questionnaire_id: params[:questionnaire_id])
         when !params[:get][:question_id].join.empty? && params[:get][:person_id].join.empty?
           @responses = Response.where(questionnaire_id: params[:questionnaire_id], question_id: params[:get][:question_id])
         when !params[:get][:person_id].join.empty? && !params[:get][:question_id].join.empty?
-          @responses = Response.where(question_id: params[:get][:question_id], user_id: params[:get][:person_id])
+          @responses = Response.where(question_id: params[:get][:question_id], user_id: params[:get][:person_id], questionnaire_id: params[:questionnaire_id])
         else
           @responses = Response.where(questionnaire_id: params[:questionnaire_id])
         end
@@ -71,9 +71,13 @@ class ResponsesController < ApplicationController
         @response.question_id = question_id.first
         @response.response_type = params[:response][:response_type]
         @response.questionnaire_id = params[:response][:questionnaire_id]
-        @response.save
         if @response.save
           next
+        else
+          respond_to do |format|
+            format.html { redirect_to questionnaires_path, notice: "Respuestas no guardadas" }
+            format.json { render :show, status: :created, location: @response }
+          end
         end
 
       end

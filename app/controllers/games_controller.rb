@@ -24,7 +24,7 @@ class GamesController < ApplicationController
     if !current_user.nil?
       record_activity("Ingreso al memoria")
       person = Person.find_by(email: current_user.email)
-      categories = Category.where.(creator_id: current_user.id)
+      categories = Category.where(creator_id: current_user.id)
       @subcategories = []
       Subcategory.where(category_id: categories.ids).sample(6).each do | subcategory |
         if subcategory.subcategories_image.attached?
