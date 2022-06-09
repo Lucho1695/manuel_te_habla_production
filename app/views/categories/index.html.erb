@@ -21,11 +21,11 @@
         <% if current_user.user_roles != "Niño" %>
           <%= render 'index_categories_admin' %>
         <% else %>
-          <h2>Seleccione una de las siguientes categorías:</h2><br>
+          <h4>Seleccione una de las siguientes categorías:</h4><br>
           <%= render "index_categories" %>
         <% end %>
       <% else %>
-        <h2>Seleccione una de las siguientes categorías:</h2><br>
+        <h4>Seleccione una de las siguientes categorías:</h4><br>
 
         <%= render "index_categories" %>
       <% end %>

@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-6">
   <div class="nested-fields">
     <div class="card border-info">
       <div class="card-header">
@@ -12,7 +12,7 @@
         <div class='form-group'>
           <br><br>
           <%= link_to_add_association(f, :answers, data: {"association-insertion-method" => "append" }, partial: "answer_fields", class: "answer_fields" ) do %>
-            <button type='button' class='btn btn-primary'><span class='fas fa-plus'></span>Agregar Respuesta</button>
+            <button type='button' class='btn btn-primary'><span class='fa fa-plus'></span>Agregar Respuesta</button>
           <% end %>
           <br>
           <div class="col-md-12 row" id="this">
@@ -24,7 +24,7 @@
         </div>
 
         <small>
-          <%= link_to_remove_association '<span class="glyphicon glyphicon-minus white"></span> Eliminar pregunta'.html_safe, f, class: 'btn btn-danger text-white' %>
+          <%= link_to_remove_association '<span class="fa fa-minus white"></span> Eliminar pregunta'.html_safe, f, class: 'btn btn-danger text-white' %>
         </small>
       </div>
 

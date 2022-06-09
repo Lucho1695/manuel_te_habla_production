@@ -192,9 +192,18 @@ a:hover {
 
 .text{
   opacity: 8;
-  color: #FFFFF;
+  color: black;
+}
+strong {
+  color: black;
+}
+b {
+  color: black;
 }
 
+h2, h3, h4, td, th{
+  color: black;
+}
 #dataTable{
   overflow-x:auto;
   border: 1px solid black;

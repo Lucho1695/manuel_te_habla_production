@@ -1,7 +1,7 @@
 <%= form_with(model: response, local: true) do |form| %>
 <% if response.errors.any? %>
 <div id="error_explanation">
-  <h2><%= pluralize(response.errors.count, "error") %> prohibited this response from being saved:</h2>
+  <h4><%= pluralize(response.errors.count, "error") %> prohibited this response from being saved:</h4>
   <ul>
     <% response.errors.full_messages.each do |message| %>
     <li><%= message %></li>
@@ -15,7 +15,7 @@
     <div onclick="myFunction('', '<%= @questionnaire.name %>')"
       onclick="return <%= @questionnaire.name.present? ? true : false %>">
       <%= @questionnaire.name %>
-      <i class="fas fa-volume-up fa-lg" style="color: blue;"></i>
+      <i class="fa fa-volume-up" aria-hidden="true" style="color: blue;"></i>
     </div>
   </div>
   <%= form.hidden_field :questionnaire_id, value: @questionnaire.id %>
@@ -72,26 +72,6 @@
 </div>
 
 <% end %>
-
-<style media="screen">
-  /* HIDE RADIO */
-[type=radio] {
-  position: absolute;
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* IMAGE STYLES */
-[type=radio] + img {
-  cursor: pointer;
-}
-
-/* CHECKED STYLES */
-[type=radio]:checked{
-  outline: 2px solid #f00;
-}
-</style>
 
 <script>
   window.addEventListener('DOMContentLoaded', () => {
