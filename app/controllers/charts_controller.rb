@@ -46,7 +46,7 @@ class ChartsController < ApplicationController
         responses = Response.where(user_id: users.ids, questionnaire_id: params[:goal_id])
       end
     else
-      users = Person.where(user_id: current_user.id) if current_user.user_roles == "Adulto Responsable"
+      users = User.where(email: Person.where(user_id: current_user.id).pluck(:email))  if current_user.user_roles == "Adulto Responsable"
       users = Person.where(roles: 2) if current_user.user_roles == "SuperAdmin"
 
       responses = Response.where(user_id: users.ids, questionnaire_id: params[:goal_id])
